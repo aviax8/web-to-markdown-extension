@@ -1,0 +1,167 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #f3f4f6;
+    color: #111827;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.5;
+    padding: 20px;
+}
+
+.container {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    margin: 0 auto;
+    max-width: 760px;
+    overflow: hidden;
+}
+
+header {
+    background: #111827;
+    color: #ffffff;
+    padding: 24px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 24px;
+    margin-bottom: 6px;
+}
+
+.version {
+    color: #d1d5db;
+    font-size: 13px;
+}
+
+main {
+    padding: 24px;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+.description {
+    color: #4b5563;
+    font-size: 14px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.text-input {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 14px;
+    padding: 10px 12px;
+    width: 100%;
+}
+
+.text-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    outline: none;
+}
+
+textarea.text-input {
+    min-height: 70px;
+    resize: vertical;
+}
+
+.help-text {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn {
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 16px;
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+}
+
+.btn-secondary {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.btn-secondary:hover {
+    background: #d1d5db;
+}
+
+.status-message {
+    border-radius: 6px;
+    display: none;
+    font-size: 14px;
+    margin-top: 4px;
+    padding: 10px 12px;
+}
+
+.status-message.success {
+    background: #dcfce7;
+    border: 1px solid #86efac;
+    color: #166534;
+    display: block;
+}
+
+.status-message.error {
+    background: #fee2e2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+    display: block;
+}
+
+@media (max-width: 640px) {
+    body {
+        padding: 12px;
+    }
+
+    main {
+        padding: 18px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

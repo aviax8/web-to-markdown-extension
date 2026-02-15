@@ -1,0 +1,10 @@
+# 3rd party libs
+extension/turndown.js
+extension/turndown-plugin-gfm.js
+
+# Build artifacts
+build/
+node_modules/
+
+# Temporary files
+*.tmp

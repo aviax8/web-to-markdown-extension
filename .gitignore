@@ -1,0 +1,8 @@
+# Extension packages
+*.zip
+*.crx
+*.xpi
+build/
+
+# Node
+node_modules/

@@ -1,0 +1,31 @@
+{
+  "name": "web-to-markdown-extension",
+  "version": "1.0.0",
+  "description": "Browser extension to copy Web pages and AI chats as Markdown",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint extension/**/*.js",
+    "lint:fix": "eslint extension/**/*.js --fix",
+    "lint:web-ext": "web-ext lint --source-dir=extension",
+    "build": "web-ext build"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-plugin-mozilla": "^3.6.3",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "web-ext": "^9.2.0"
+  },
+  "keywords": [
+    "chrome-extension",
+    "firefox-addon"
+    "markdown",
+    "ai",
+    "chatgpt",
+    "gemini",
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {}
+}
