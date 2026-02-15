@@ -24,6 +24,8 @@
     "no-var": "warn"
   },
   "globals": {
-    "chrome": "readonly"
+    "chrome": "readonly",
+    "TurndownService": "readonly",
+    "turndownPluginGfm": "readonly"
   }
 }

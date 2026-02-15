@@ -3,6 +3,12 @@ const MENU_COPY_PAGE = 'copy-page-as-markdown';
 const MENU_COPY_SELECTION = 'copy-selection-as-markdown';
 const MENU_COPY_AI_CHAT = 'copy-ai-chat-as-markdown';
 const MENU_COPY_AI_RESPONSE = 'copy-ai-response-as-markdown';
+const AI_DOCUMENT_URL_PATTERNS = [
+    '<all_urls>'
+    //~ 'https://chatgpt.com/*',
+    //~ 'https://chat.openai.com/*',
+    //~ 'https://gemini.google.com/*'
+];
 
 function createContextMenu() {
     chrome.contextMenus.removeAll(() => {
@@ -31,14 +37,14 @@ function createContextMenu() {
             parentId: MENU_ROOT,
             title: 'Copy AI chat as Markdown',
             contexts: ['page', 'selection'],
-            documentUrlPatterns: ['<all_urls>']
+            documentUrlPatterns: AI_DOCUMENT_URL_PATTERNS
         });
         chrome.contextMenus.create({
             id: MENU_COPY_AI_RESPONSE,
             parentId: MENU_ROOT,
             title: 'Copy AI response as Markdown',
             contexts: ['page', 'selection'],
-            documentUrlPatterns: ['<all_urls>']
+            documentUrlPatterns: AI_DOCUMENT_URL_PATTERNS
         }, () => {
             if (chrome.runtime.lastError) {
                 console.error('[Web-to-Markdown] Failed to create context menu:', chrome.runtime.lastError.message);

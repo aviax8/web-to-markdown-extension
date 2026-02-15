@@ -104,15 +104,15 @@ The extension requires icon files. Follow these steps to generate them:
 2. **Prepare the Package**
    ```bash
    cd extension
-   zip -r ../chatgpt-markdown-copy.zip .
+   zip -r ../web-to-markdown-chrome.zip .
    ```
 
 3. **Upload**
    - Click "New Item" in the dashboard
    - Upload the ZIP file
    - Fill in the store listing details:
-     - Name: ChatGPT & Gemini Markdown Copy
-     - Description: Add Markdown copy button to ChatGPT and Gemini responses
+     - Name: Web to Markdown
+     - Description: Copying Web page content and AI conversations as Markdown
      - Category: Productivity
      - Screenshots (at least 1, 1280x800 or 640x400)
      - Icon (128x128, already in your package)
@@ -129,7 +129,7 @@ The extension requires icon files. Follow these steps to generate them:
 2. **Prepare the Package**
    ```bash
    cd extension
-   zip -r ../chatgpt-markdown-copy-firefox.zip .
+   zip -r ../web-to-markdown-firefox.zip .
    ```
 
 3. **Upload**
@@ -152,12 +152,6 @@ The extension requires icon files. Follow these steps to generate them:
   It only requires clipboard write permission to copy text to your clipboard when you click the Markdown copy button.
   All processing is done locally in your browser.
   ```
-
-- **Screenshots**: Create screenshots showing:
-  - The extension in action on ChatGPT
-  - The extension in action on Gemini
-  - The Markdown copy button highlighted
-  - Example of copied Markdown content
 
 - **Promotional Images**: Chrome requires promotional images (440x280, 920x680, 1400x560)
 

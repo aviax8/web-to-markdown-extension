@@ -362,7 +362,7 @@ async function copySelectionAsMarkdown() {
 
 async function copyAIChatAsMarkdown() {
     const chatContent = config.getAIChat(lastContextTarget);
-    return writeElementAsMarkdown(chatContent, 'Chat content not found.');
+    return writeElementAsMarkdown(chatContent, 'AI chat content not found.');
 }
 
 async function copyAIResponseAsMarkdown() {

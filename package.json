@@ -19,11 +19,11 @@
   },
   "keywords": [
     "chrome-extension",
-    "firefox-addon"
+    "firefox-addon",
     "markdown",
     "ai",
     "chatgpt",
-    "gemini",
+    "gemini"
   ],
   "author": "",
   "license": "MIT",
