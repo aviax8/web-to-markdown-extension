@@ -1,6 +1,8 @@
 // es module - options page
 
-if (!WebToMarkdownSettings) {
+const settingsApi = globalThis.WebToMarkdownSettings;
+
+if (!settingsApi) {
     throw new Error('WebToMarkdownSettings is not available.');
 }
 
@@ -28,10 +30,10 @@ function showStatus(message, type = 'success', duration = 3000) {
 
 
 function loadSettingsToForm() {
-    WebToMarkdownSettings.loadSettings((settings, error) => {
-	    elements.requestHeaderText.value = settings.requestHeaderText;
-	    elements.requestQuotePrefix.value = settings.requestQuotePrefix;
-	    elements.responseHeaderText.value = settings.responseHeaderText;
+    settingsApi.loadSettings((settings, error) => {
+        elements.requestHeaderText.value = settings.requestHeaderText;
+        elements.requestQuotePrefix.value = settings.requestQuotePrefix;
+        elements.responseHeaderText.value = settings.responseHeaderText;
 
         if (error) {
             showStatus('Error loading settings: ' + error.message, 'error');
@@ -46,7 +48,7 @@ function saveSettings() {
         responseHeaderText: elements.responseHeaderText.value
     };
 
-    WebToMarkdownSettings.saveSettings(settings, (_savedSettings, error) => {
+    settingsApi.saveSettings(settings, (_savedSettings, error) => {
         if (error) {
             showStatus('Error saving settings: ' + error.message, 'error');
             return;
@@ -61,7 +63,7 @@ function resetSettings() {
         return;
     }
 
-    WebToMarkdownSettings.resetSettings((_defaults, error) => {
+    settingsApi.resetSettings((_defaults, error) => {
         if (error) {
             showStatus('Error resetting settings: ' + error.message, 'error');
             return;

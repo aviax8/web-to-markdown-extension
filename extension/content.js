@@ -1,6 +1,8 @@
 // content script
 
-if (!WebToMarkdownSettings) {
+const settingsApi = globalThis.WebToMarkdownSettings;
+
+if (!settingsApi) {
     throw new Error('WebToMarkdownSettings is not available.');
 }
 
@@ -78,8 +80,8 @@ function detectPlatform() {
     return PLATFORM_CONFIG.generic;
 }
 
-function logInfo(...args) {
-    // console.log('[Web-to-Markdown]', ...args);
+function logInfo(..._args) {
+    // console.log('[Web-to-Markdown]', ..._args);
 }
 
 function logError(...args) {
@@ -333,7 +335,7 @@ function llamacppRules(turndownService) {
         filter: function (node) {
             return node.nodeName === 'DIV' && node.getAttribute('aria-label') === 'Assistant message with actions';
         },
-    replacement: function (content) {
+        replacement: function (content) {
             // content = the converted markdown of the inner elements
             // We prepend the header text from settings and add newlines for proper formatting
             return settings.responseHeaderText + '\n\n' + content;
@@ -360,10 +362,10 @@ function htmlToMarkdown(platform, element) {
     turndownService.use(turndownPluginGfm.gfm);
 
     turndownService.addRule('ignoreUnwanted', {
-      filter: ['script', 'style', 'iframe'],
-      replacement: function () {
-        return ''
-      }
+        filter: ['script', 'style', 'iframe'],
+        replacement: function () {
+            return '';
+        }
     });
 
     turndownService.addRule('katexMath', {
@@ -482,10 +484,10 @@ function initMessageListener() {
 function init() {
     initContextTargetTracking();
     initMessageListener();
-    logInfo(`Initialized.`);
+    logInfo('Initialized.');
 }
 
-WebToMarkdownSettings.loadSettings((loadedSettings, error) => {
+settingsApi.loadSettings((loadedSettings, error) => {
     settings = loadedSettings;
 
     if (error) {

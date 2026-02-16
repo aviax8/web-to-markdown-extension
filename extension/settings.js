@@ -1,105 +1,104 @@
 // settings helpers
-var WebToMarkdownSettings = (function (exports) {
-'use strict';
+(function (global) {
+    'use strict';
 
-const STORAGE_KEY = 'markdownFormatSettings';
+    const STORAGE_KEY = 'markdownFormatSettings';
 
-const DEFAULT_FORMAT_SETTINGS = Object.freeze({
-    requestHeaderText: '\n\n# Question\n\n',
-    requestQuotePrefix: '> ',
-    responseHeaderText: '\n\n## Answer\n\n'
-});
+    const DEFAULT_FORMAT_SETTINGS = Object.freeze({
+        requestHeaderText: '\n\n# Question\n\n',
+        requestQuotePrefix: '> ',
+        responseHeaderText: '\n\n## Answer\n\n'
+    });
 
-function normalizeFormatSettings(value) {
-    const normalized = { ...DEFAULT_FORMAT_SETTINGS };
-    const source = value && typeof value === 'object' ? value : {};
+    function normalizeFormatSettings(value) {
+        const normalized = { ...DEFAULT_FORMAT_SETTINGS };
+        const source = value && typeof value === 'object' ? value : {};
 
-    if (typeof source.requestHeaderText === 'string') {
-        normalized.requestHeaderText = source.requestHeaderText;
-    }
-    if (typeof source.requestQuotePrefix === 'string') {
-        normalized.requestQuotePrefix = source.requestQuotePrefix;
-    }
-    if (typeof source.responseHeaderText === 'string') {
-        normalized.responseHeaderText = source.responseHeaderText;
-    }
-
-    return normalized;
-}
-
-function loadSettings(callback) {
-    const done = (settings, error) => {
-        if (typeof callback === 'function') {
-            callback(settings, error || null);
+        if (typeof source.requestHeaderText === 'string') {
+            normalized.requestHeaderText = source.requestHeaderText;
         }
-    };
+        if (typeof source.requestQuotePrefix === 'string') {
+            normalized.requestQuotePrefix = source.requestQuotePrefix;
+        }
+        if (typeof source.responseHeaderText === 'string') {
+            normalized.responseHeaderText = source.responseHeaderText;
+        }
 
-    if (typeof chrome === 'undefined' || !chrome.storage?.sync?.get) {
-        done({ ...DEFAULT_FORMAT_SETTINGS }, null);
-        return;
+        return normalized;
     }
 
-    chrome.storage.sync.get([STORAGE_KEY], (result) => {
-        if (chrome.runtime?.lastError) {
-            done({ ...DEFAULT_FORMAT_SETTINGS }, chrome.runtime.lastError);
+    function loadSettings(callback) {
+        const done = (settings, error) => {
+            if (typeof callback === 'function') {
+                callback(settings, error || null);
+            }
+        };
+
+        if (typeof chrome === 'undefined' || !chrome.storage?.sync?.get) {
+            done({ ...DEFAULT_FORMAT_SETTINGS }, null);
             return;
         }
 
-        const merged = normalizeFormatSettings(result?.[STORAGE_KEY]);
-        done(merged, null);
-    });
-}
+        chrome.storage.sync.get([STORAGE_KEY], (result) => {
+            if (chrome.runtime?.lastError) {
+                done({ ...DEFAULT_FORMAT_SETTINGS }, chrome.runtime.lastError);
+                return;
+            }
 
-function saveSettings(value, callback) {
-    const done = (settings, error) => {
-        if (typeof callback === 'function') {
-            callback(settings, error || null);
-        }
-    };
-
-    const normalized = normalizeFormatSettings(value);
-
-    if (typeof chrome === 'undefined' || !chrome.storage?.sync?.set) {
-        done(normalized, null);
-        return;
+            const merged = normalizeFormatSettings(result?.[STORAGE_KEY]);
+            done(merged, null);
+        });
     }
 
-    chrome.storage.sync.set({ [STORAGE_KEY]: normalized }, () => {
-        if (chrome.runtime?.lastError) {
-            done(normalized, chrome.runtime.lastError);
+    function saveSettings(value, callback) {
+        const done = (settings, error) => {
+            if (typeof callback === 'function') {
+                callback(settings, error || null);
+            }
+        };
+
+        const normalized = normalizeFormatSettings(value);
+
+        if (typeof chrome === 'undefined' || !chrome.storage?.sync?.set) {
+            done(normalized, null);
             return;
         }
 
-        done(normalized, null);
-    });
-}
+        chrome.storage.sync.set({ [STORAGE_KEY]: normalized }, () => {
+            if (chrome.runtime?.lastError) {
+                done(normalized, chrome.runtime.lastError);
+                return;
+            }
 
-function resetSettings(callback) {
-    const done = (settings, error) => {
-        if (typeof callback === 'function') {
-            callback(settings, error || null);
-        }
-    };
-
-    if (typeof chrome === 'undefined' || !chrome.storage?.sync?.remove) {
-        done({ ...DEFAULT_FORMAT_SETTINGS }, null);
-        return;
+            done(normalized, null);
+        });
     }
 
-    chrome.storage.sync.remove(STORAGE_KEY, () => {
-        if (chrome.runtime?.lastError) {
-            done({ ...DEFAULT_FORMAT_SETTINGS }, chrome.runtime.lastError);
+    function resetSettings(callback) {
+        const done = (settings, error) => {
+            if (typeof callback === 'function') {
+                callback(settings, error || null);
+            }
+        };
+
+        if (typeof chrome === 'undefined' || !chrome.storage?.sync?.remove) {
+            done({ ...DEFAULT_FORMAT_SETTINGS }, null);
             return;
         }
 
-        done({ ...DEFAULT_FORMAT_SETTINGS }, null);
-    });
-}
+        chrome.storage.sync.remove(STORAGE_KEY, () => {
+            if (chrome.runtime?.lastError) {
+                done({ ...DEFAULT_FORMAT_SETTINGS }, chrome.runtime.lastError);
+                return;
+            }
 
-exports.loadSettings = loadSettings;
-exports.saveSettings = saveSettings;
-exports.resetSettings = resetSettings;
+            done({ ...DEFAULT_FORMAT_SETTINGS }, null);
+        });
+    }
 
-return exports;
-
-}({}));
+    global.WebToMarkdownSettings = {
+        loadSettings,
+        saveSettings,
+        resetSettings
+    };
+}(globalThis));
