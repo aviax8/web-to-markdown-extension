@@ -1,9 +1,82 @@
 // content script
 
-let config = null;
+if (!WebToMarkdownSettings) {
+    throw new Error('WebToMarkdownSettings is not available.');
+}
+
+let settings = null;
+
 let lastContextTarget = null;
 let lastContextPosition = { x: 0, y: 0 };
 let copiedTooltipTimeout = null;
+
+const PLATFORM_CONFIG = {
+    chatgpt: {
+        detect: () => {
+            const hostname = window.location.hostname;
+            return (hostname.includes('chatgpt.com') || hostname.includes('openai.com'));
+        },
+        getAIChat: () => {
+            return document.querySelector('main');
+        },
+        getAIResponse: (clickedElement) => {
+            return clickedElement?.closest('div[data-message-author-role="assistant"]') || null;
+        },
+        addRules: (turndownService) => {
+            chatgptRules(turndownService);
+        },
+    },
+    gemini: {
+        detect: () => {
+            const hostname = window.location.hostname;
+            return (hostname.includes('gemini.google.com'));
+        },
+        getAIChat: () => {
+            return document.querySelector('#chat-history');
+        },
+        getAIResponse: (clickedElement) => {
+            return clickedElement?.closest('message-content') || null;
+        },
+        addRules: (turndownService) => {
+            geminiRules(turndownService);
+        },
+    },
+    llamacpp: {
+        detect: () => {
+            return document.title.includes('llama.cpp') && document.querySelector('form[data-slot="chat-form"]');
+        },
+        getAIChat: () => {
+            const chatForm = document.querySelector('form[data-slot="chat-form"]');
+            return chatForm?.closest('div[role="main"]') || null;
+        },
+        getAIResponse: (clickedElement) => {
+            return clickedElement?.closest('div[role="group"]') || null;
+        },
+        addRules: (turndownService) => {
+            llamacppRules(turndownService);
+        },
+    },
+    generic: {
+        detect: () => false,
+        getAIChat: () => null,
+        getAIResponse: () => null,
+        addRules: () => null,
+    },
+};
+
+function detectPlatform() {
+    for (const [platformName, platformConfig] of Object.entries(PLATFORM_CONFIG)) {
+        if (platformName === 'generic') {
+            continue;
+        }
+
+        if (platformConfig.detect()) {
+            return platformConfig;
+        }
+    }
+
+    return PLATFORM_CONFIG.generic;
+}
 
 function logInfo(...args) {
     // console.log('[Web-to-Markdown]', ...args);
@@ -52,106 +125,7 @@ function showCopiedTooltip() {
     }, 1500);
 }
 
-const DEFAULT_PLATFORM_CONFIG = {
-    chatgpt: {
-        getAIChat: () => {
-            return document.querySelector('main');
-        },
-        getAIResponse: (clickedElement) => {
-            return clickedElement?.closest('div[data-message-author-role="assistant"]') || null;
-        },
-    },
-    gemini: {
-        getAIChat: () => {
-            return document.querySelector('#chat-history');
-        },
-        getAIResponse: (clickedElement) => {
-            return clickedElement?.closest('message-content') || null;
-        },
-    },
-    generic: {
-        getAIChat: () => null,
-        getAIResponse: () => null,
-    },
-};
-
-function detectPlatform() {
-    const hostname = window.location.hostname;
-    if (hostname.includes('chatgpt.com') || hostname.includes('openai.com')) {
-        return 'chatgpt';
-    }
-    if (hostname.includes('gemini.google.com')) {
-        return 'gemini';
-    }
-    return 'generic';
-}
-
-const currentPlatform = detectPlatform();
-const DEFAULT_FORMAT_SETTINGS = {
-    requestHeaderText: '\n\n# Question\n\n',
-    requestQuotePrefix: '> ',
-    responseHeaderText: '\n\n## Answer\n\n'
-};
-
-function loadSettings(callback) {
-    if (typeof chrome !== 'undefined' && chrome.storage) {
-        chrome.storage.sync.get(['markdownFormatSettings'], (result) => {
-            const savedSettings = result.markdownFormatSettings || {};
-            const defaultSelectors = DEFAULT_PLATFORM_CONFIG[currentPlatform] || DEFAULT_PLATFORM_CONFIG.generic;
-
-            config = {
-                getAIChat: defaultSelectors.getAIChat,
-                getAIResponse: defaultSelectors.getAIResponse,
-                requestHeaderText: typeof savedSettings.requestHeaderText === 'string'
-                    ? savedSettings.requestHeaderText
-                    : DEFAULT_FORMAT_SETTINGS.requestHeaderText,
-                requestQuotePrefix: typeof savedSettings.requestQuotePrefix === 'string'
-                    ? savedSettings.requestQuotePrefix
-                    : DEFAULT_FORMAT_SETTINGS.requestQuotePrefix,
-                responseHeaderText: typeof savedSettings.responseHeaderText === 'string'
-                    ? savedSettings.responseHeaderText
-                    : DEFAULT_FORMAT_SETTINGS.responseHeaderText
-            };
-
-            logInfo('loaded config:', config);
-            if (callback) {
-                callback();
-            }
-        });
-        return;
-    }
-
-    const defaultSelectors = DEFAULT_PLATFORM_CONFIG[currentPlatform] || DEFAULT_PLATFORM_CONFIG.generic;
-    config = {
-        getAIChat: defaultSelectors.getAIChat,
-        getAIResponse: defaultSelectors.getAIResponse,
-        requestHeaderText: DEFAULT_FORMAT_SETTINGS.requestHeaderText,
-        requestQuotePrefix: DEFAULT_FORMAT_SETTINGS.requestQuotePrefix,
-        responseHeaderText: DEFAULT_FORMAT_SETTINGS.responseHeaderText
-    };
-    logInfo('using default config (storage not available)');
-    if (callback) {
-        callback();
-    }
-}
-
-function htmlToMarkdown(element) {
-    if (typeof TurndownService === 'undefined') {
-        throw new Error('TurndownService is not available.');
-    }
-
-    const root = element.cloneNode(true);
-
-    const turndownService = new TurndownService({
-        headingStyle: 'atx',
-        hr: '------------------------------------------------------------------------------------------------------------------------',
-        codeBlockStyle: 'fenced',
-        bulletListMarker: '*',
-        emDelimiter: '*'
-    });
-
-    turndownService.use(turndownPluginGfm.gfm);
-
+function chatgptRules(turndownService) {
     turndownService.addRule('skipChatGptReferenceSpans', {
         filter: function (node) {
             return node.nodeName === 'SPAN' && (
@@ -163,24 +137,70 @@ function htmlToMarkdown(element) {
             return '';
         }
     });
-
-    turndownService.addRule('katexMath', {
+    turndownService.addRule('gptPreCodeBlock', {
         filter: function (node) {
-            return node.nodeName === 'SPAN' && node.classList.contains('katex');
+            return node.nodeName === 'PRE' && !node.closest('code-block');
         },
         replacement: function (_content, node) {
-            const mathAnnotation = node.querySelector('annotation[encoding="application/x-tex"]');
-            if (!mathAnnotation) {
-                return '';
+            const codeElement = node.querySelector('code');
+            if (!codeElement) {
+                return '```\n' + node.textContent + '\n```\n\n';
             }
 
-            const isDisplay = node.classList.contains('katex-display') || node.parentElement?.classList.contains('katex-display');
-            return isDisplay
-                ? '\n$$\n' + mathAnnotation.textContent + '\n$$\n\n'
-                : '$' + mathAnnotation.textContent + '$';
+            let language = '';
+            const langElement = node.firstElementChild?.firstElementChild;
+            if (langElement) {
+                const langText = langElement.textContent.trim();
+                if (langText.length < 20 && /^[a-zA-Z0-9+#-]+$/.test(langText)) {
+                    language = langText.toLowerCase();
+                }
+            }
+
+            return '```' + language + '\n' + codeElement.textContent + '\n```\n\n';
         }
     });
 
+    // rule for user question header
+    turndownService.addRule('gptRequestHeader', {
+        filter: function (node) {
+            return (
+                node.nodeName === 'H5' &&
+                node.closest('article[data-turn="user"]') &&
+                node.closest('article[data-turn="user"]').querySelector('h5') === node
+            );
+        },
+        replacement: function () {
+            return settings.requestHeaderText;
+        }
+    });
+
+    turndownService.addRule('gptRequestQuote', {
+        filter: function (node) {
+            return node.nodeName === 'ARTICLE' && node.getAttribute('data-turn') === 'user';
+        },
+        replacement: function (content) {
+            const cleanedContent = content.trim();
+            const quoted = cleanedContent.replace(/^/gm, settings.requestQuotePrefix);
+            return '\n\n' + quoted + '\n\n';
+        }
+    });
+
+    // rule for assistant answer header
+    turndownService.addRule('gptResponseHeader', {
+        filter: function (node) {
+            return (
+                node.nodeName === 'H6' &&
+                node.closest('article[data-turn="assistant"]') &&
+                node.closest('article[data-turn="assistant"]').querySelector('h6') === node
+            );
+        },
+        replacement: function () {
+            return settings.responseHeaderText;
+        }
+    });
+}
+
+function geminiRules(turndownService) {
     turndownService.addRule('geminiInlineMath', {
         filter: function (node) {
             return node.nodeName === 'SPAN' && node.classList.contains('math-inline');
@@ -232,7 +252,7 @@ function htmlToMarkdown(element) {
             return node.textContent.trim() === 'You said';
         },
         replacement: function () {
-            return config.requestHeaderText;
+            return settings.requestHeaderText;
         }
     });
 
@@ -242,8 +262,17 @@ function htmlToMarkdown(element) {
         },
         replacement: function (content) {
             const cleanedContent = content.trim();
-            const quoted = cleanedContent.replace(/^/gm, config.requestQuotePrefix);
+            const quoted = cleanedContent.replace(/^/gm, settings.requestQuotePrefix);
             return '\n\n' + quoted + '\n\n';
+        }
+    });
+
+    turndownService.addRule('geminiIgnoreReasoning', {
+        filter: function (node) {
+            return node.nodeName === 'DIV' && node.classList.contains('thoughts-container');
+        },
+        replacement: function () {
+            return '';
         }
     });
 
@@ -253,12 +282,12 @@ function htmlToMarkdown(element) {
             return node.textContent.trim() === 'Gemini said';
         },
         replacement: function () {
-            return config.responseHeaderText;
+            return settings.responseHeaderText;
         }
     });
 
     // rule to skip standalone "description"
-    turndownService.addRule('skipDescription', {
+    turndownService.addRule('geminiSkipDescription', {
         filter: function (node) {
             return node.textContent.trim() === 'description';
         },
@@ -266,87 +295,116 @@ function htmlToMarkdown(element) {
             return '';
         }
     });
+}
 
-    turndownService.addRule('gptPreCodeBlock', {
+function llamacppRules(turndownService) {
+    // rule for quoted user question and its header
+    turndownService.addRule('llamacppRequestQuote', {
         filter: function (node) {
-            return node.nodeName === 'PRE' && !node.closest('code-block');
-        },
-        replacement: function (_content, node) {
-            const codeElement = node.querySelector('code');
-            if (!codeElement) {
-                return '```\n' + node.textContent + '\n```\n\n';
-            }
-
-            let language = '';
-            const langElement = node.firstElementChild?.firstElementChild;
-            if (langElement) {
-                const langText = langElement.textContent.trim();
-                if (langText.length < 20 && /^[a-zA-Z0-9+#-]+$/.test(langText)) {
-                    language = langText.toLowerCase();
-                }
-            }
-
-            return '```' + language + '\n' + codeElement.textContent + '\n```\n\n';
-        }
-    });
-
-    // rule for user question header
-    turndownService.addRule('gptRequestHeader', {
-        filter: function (node) {
-            return (
-                node.nodeName === 'H5' &&
-                node.closest('article[data-turn="user"]') &&
-                node.closest('article[data-turn="user"]').querySelector('h5') === node
-            );
-        },
-        replacement: function () {
-            return config.requestHeaderText;
-        }
-    });
-
-    turndownService.addRule('gptRequestQuote', {
-        filter: function (node) {
-            return node.nodeName === 'ARTICLE' && node.getAttribute('data-turn') === 'user';
+            return node.nodeName === 'DIV' && node.getAttribute('aria-label') === 'User message with actions';
         },
         replacement: function (content) {
             const cleanedContent = content.trim();
-            const quoted = cleanedContent.replace(/^/gm, config.requestQuotePrefix);
-            return '\n\n' + quoted + '\n\n';
+            const quoted = cleanedContent.replace(/^/gm, settings.requestQuotePrefix);
+            return settings.requestHeaderText + '\n\n' + quoted + '\n\n';
         }
     });
 
-    // rule for assistant answer header
-    turndownService.addRule('gptResponseHeader', {
+    turndownService.addRule('llamacppIgnoreReasoning', {
+        // div[data-slot="collapsible"] direct descendants of div[class="text-md"]
         filter: function (node) {
-            return (
-                node.nodeName === 'H6' &&
-                node.closest('article[data-turn="assistant"]') &&
-                node.closest('article[data-turn="assistant"]').querySelector('h6') === node
-            );
+            const isCollapsible = node.nodeName === 'DIV' &&
+                                  node.getAttribute('data-slot') === 'collapsible';
+
+            const parent = node.parentElement;
+            const isDirectChildOfTextMd = parent &&
+                                          parent.nodeName === 'DIV' &&
+                                          parent.classList.contains('text-md');
+
+            return isCollapsible && isDirectChildOfTextMd;
         },
         replacement: function () {
-            return config.responseHeaderText;
+            return '';
         }
     });
+
+    // rule for answer header
+    turndownService.addRule('llamacppResponseHeader', {
+        filter: function (node) {
+            return node.nodeName === 'DIV' && node.getAttribute('aria-label') === 'Assistant message with actions';
+        },
+    replacement: function (content) {
+            // content = the converted markdown of the inner elements
+            // We prepend the header text from settings and add newlines for proper formatting
+            return settings.responseHeaderText + '\n\n' + content;
+        }
+    });
+
+}
+
+function htmlToMarkdown(platform, element) {
+    if (typeof TurndownService === 'undefined') {
+        throw new Error('TurndownService is not available.');
+    }
+
+    const root = element.cloneNode(true);
+
+    const turndownService = new TurndownService({
+        headingStyle: 'atx',
+        hr: '------------------------------------------------------------------------------------------------------------------------',
+        codeBlockStyle: 'fenced',
+        bulletListMarker: '*',
+        emDelimiter: '*'
+    });
+
+    turndownService.use(turndownPluginGfm.gfm);
+
+    turndownService.addRule('ignoreUnwanted', {
+      filter: ['script', 'style', 'iframe'],
+      replacement: function () {
+        return ''
+      }
+    });
+
+    turndownService.addRule('katexMath', {
+        filter: function (node) {
+            return node.nodeName === 'SPAN' && node.classList.contains('katex');
+        },
+        replacement: function (_content, node) {
+            const mathAnnotation = node.querySelector('annotation[encoding="application/x-tex"]');
+            if (!mathAnnotation) {
+                return '';
+            }
+
+            const isDisplay = node.classList.contains('katex-display') || node.parentElement?.classList.contains('katex-display');
+            return isDisplay
+                ? '\n$$\n' + mathAnnotation.textContent + '\n$$\n\n'
+                : '$' + mathAnnotation.textContent + '$';
+        }
+    });
+
+    platform.addRules(turndownService);
 
     return turndownService.turndown(root).trim();
 }
 
-async function writeElementAsMarkdown(element, notFoundMessage) {
+async function writeElementAsMarkdown(platform, element, notFoundMessage) {
     if (!element) {
         throw new Error(notFoundMessage);
     }
 
-    const markdown = htmlToMarkdown(element);
+    const markdown = htmlToMarkdown(platform, element);
     await navigator.clipboard.writeText(markdown);
     return markdown;
 }
 
 async function copyPageAsMarkdown() {
-    return writeElementAsMarkdown(document.body, 'Page body not found.');
+    const platform = detectPlatform();
+    return writeElementAsMarkdown(platform, document.body, 'Page body not found.');
 }
 
 async function copySelectionAsMarkdown() {
+    const platform = detectPlatform();
     const selection = window.getSelection();
     if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
         throw new Error('No text selected.');
@@ -357,17 +415,19 @@ async function copySelectionAsMarkdown() {
         selectedRoot.appendChild(selection.getRangeAt(i).cloneContents());
     }
 
-    return writeElementAsMarkdown(selectedRoot, 'Selection content not found.');
+    return writeElementAsMarkdown(platform, selectedRoot, 'Selection content not found.');
 }
 
 async function copyAIChatAsMarkdown() {
-    const chatContent = config.getAIChat(lastContextTarget);
-    return writeElementAsMarkdown(chatContent, 'AI chat content not found.');
+    const platform = detectPlatform();
+    const chatContent = platform.getAIChat(lastContextTarget);
+    return writeElementAsMarkdown(platform, chatContent, 'AI chat content not found.');
 }
 
 async function copyAIResponseAsMarkdown() {
-    const responseContent = config.getAIResponse(lastContextTarget);
-    return writeElementAsMarkdown(responseContent, 'AI response not found from the clicked element.');
+    const platform = detectPlatform();
+    const responseContent = platform.getAIResponse(lastContextTarget);
+    return writeElementAsMarkdown(platform, responseContent, 'AI response not found from the clicked element.');
 }
 
 function initContextTargetTracking() {
@@ -422,10 +482,18 @@ function initMessageListener() {
 function init() {
     initContextTargetTracking();
     initMessageListener();
-    logInfo(`Initialized for ${currentPlatform}`);
+    logInfo(`Initialized.`);
 }
 
-loadSettings(() => {
+WebToMarkdownSettings.loadSettings((loadedSettings, error) => {
+    settings = loadedSettings;
+
+    if (error) {
+        logError('failed to load settings:', error.message);
+    } else {
+        logInfo('loaded settings:', settings);
+    }
+
     try {
         init();
     } catch (error) {

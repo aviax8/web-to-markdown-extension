@@ -3,6 +3,9 @@
 *.crx
 *.xpi
 build/
+web-ext-artifacts/
+.amo-upload-uuid
 
 # Node
 node_modules/
+npm-run.bat

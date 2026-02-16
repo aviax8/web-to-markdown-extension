@@ -1,10 +1,8 @@
 // es module - options page
 
-const DEFAULT_FORMAT_SETTINGS = {
-    requestHeaderText: '\n\n# Question\n\n',
-    requestQuotePrefix: '> ',
-    responseHeaderText: '\n\n## Answer\n\n'
-};
+if (!WebToMarkdownSettings) {
+    throw new Error('WebToMarkdownSettings is not available.');
+}
 
 const elements = {
     requestHeaderText: document.getElementById('request-header-text'),
@@ -12,52 +10,49 @@ const elements = {
     responseHeaderText: document.getElementById('response-header-text'),
     saveSettings: document.getElementById('save-settings'),
     resetSettings: document.getElementById('reset-settings'),
-    selectorStatus: document.getElementById('selector-status')
+    settingsStatus: document.getElementById('settings-status')
 };
 
-function showStatus(element, message, type = 'success', duration = 3000) {
-    element.textContent = message;
-    element.className = `status-message ${type}`;
-    element.style.display = 'block';
+function showStatus(message, type = 'success', duration = 3000) {
+    const el = elements.settingsStatus;
+    el.textContent = message;
+    el.className = `status-message ${type}`;
+    el.style.display = 'block';
 
     if (duration > 0) {
         setTimeout(() => {
-            element.style.display = 'none';
+            el.style.display = 'none';
         }, duration);
     }
 }
 
-function loadSettings() {
-    chrome.storage.sync.get(['markdownFormatSettings'], (result) => {
-        const settings = result.markdownFormatSettings || DEFAULT_FORMAT_SETTINGS;
 
-        elements.requestHeaderText.value = typeof settings.requestHeaderText === 'string'
-            ? settings.requestHeaderText
-            : DEFAULT_FORMAT_SETTINGS.requestHeaderText;
+function loadSettingsToForm() {
+    WebToMarkdownSettings.loadSettings((settings, error) => {
+	    elements.requestHeaderText.value = settings.requestHeaderText;
+	    elements.requestQuotePrefix.value = settings.requestQuotePrefix;
+	    elements.responseHeaderText.value = settings.responseHeaderText;
 
-        elements.requestQuotePrefix.value = typeof settings.requestQuotePrefix === 'string'
-            ? settings.requestQuotePrefix
-            : DEFAULT_FORMAT_SETTINGS.requestQuotePrefix;
-
-        elements.responseHeaderText.value = typeof settings.responseHeaderText === 'string'
-            ? settings.responseHeaderText
-            : DEFAULT_FORMAT_SETTINGS.responseHeaderText;
+        if (error) {
+            showStatus('Error loading settings: ' + error.message, 'error');
+        }
     });
 }
 
 function saveSettings() {
-    const markdownFormatSettings = {
+    const settings = {
         requestHeaderText: elements.requestHeaderText.value,
         requestQuotePrefix: elements.requestQuotePrefix.value,
         responseHeaderText: elements.responseHeaderText.value
     };
 
-    chrome.storage.sync.set({ markdownFormatSettings }, () => {
-        if (chrome.runtime.lastError) {
-            showStatus(elements.selectorStatus, 'Error saving settings: ' + chrome.runtime.lastError.message, 'error');
-        } else {
-            showStatus(elements.selectorStatus, 'Settings saved. Refresh open tabs to apply changes.', 'success');
+    WebToMarkdownSettings.saveSettings(settings, (_savedSettings, error) => {
+        if (error) {
+            showStatus('Error saving settings: ' + error.message, 'error');
+            return;
         }
+
+        showStatus('Settings saved. Refresh open tabs to apply changes.', 'success');
     });
 }
 
@@ -66,9 +61,14 @@ function resetSettings() {
         return;
     }
 
-    chrome.storage.sync.remove('markdownFormatSettings', () => {
-        loadSettings();
-        showStatus(elements.selectorStatus, 'Settings reset to defaults.', 'success');
+    WebToMarkdownSettings.resetSettings((_defaults, error) => {
+        if (error) {
+            showStatus('Error resetting settings: ' + error.message, 'error');
+            return;
+        }
+
+        loadSettingsToForm();
+        showStatus('Settings reset to defaults.', 'success');
     });
 }
 
@@ -76,5 +76,5 @@ elements.saveSettings.addEventListener('click', saveSettings);
 elements.resetSettings.addEventListener('click', resetSettings);
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadSettings();
+    loadSettingsToForm();
 });
