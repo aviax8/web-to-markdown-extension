@@ -1,0 +1,104 @@
+{
+  "extension_name": {
+    "message": "Web to Markdown"
+  },
+  "extension_description": {
+    "message": "Kopíruje stránku, výběr a AI obsah jako Markdown z kontextového menu"
+  },
+  "menu_root_title": {
+    "message": "Web to Markdown"
+  },
+  "menu_copy_page": {
+    "message": "Kopírovat stránku jako Markdown"
+  },
+  "menu_copy_selection": {
+    "message": "Kopírovat výběr jako Markdown"
+  },
+  "menu_copy_ai_chat": {
+    "message": "Kopírovat AI chat jako Markdown"
+  },
+  "menu_copy_ai_response": {
+    "message": "Kopírovat AI odpověď jako Markdown"
+  },
+  "locale_lang_tag": {
+    "message": "cs"
+  },
+  "options_page_title": {
+    "message": "Web to Markdown - Nastavení"
+  },
+  "options_main_title": {
+    "message": "Web to Markdown"
+  },
+  "options_formatting_settings": {
+    "message": "Nastavení formátování"
+  },
+  "options_markdown_output": {
+    "message": "Markdown výstup"
+  },
+  "options_markdown_output_description": {
+    "message": "Nastavte texty použité při převodu AI konverzací do markdownu."
+  },
+  "options_request_header_text_label": {
+    "message": "Text hlavičky dotazu"
+  },
+  "options_default": {
+    "message": "Výchozí:"
+  },
+  "options_request_quote_prefix_label": {
+    "message": "Prefix citace uživatelského dotazu"
+  },
+  "options_response_header_text_label": {
+    "message": "Text hlavičky AI odpovědi"
+  },
+  "options_save_settings": {
+    "message": "Uložit nastavení"
+  },
+  "options_reset_to_default": {
+    "message": "Obnovit výchozí"
+  },
+  "status_error_loading_settings": {
+    "message": "Chyba při načítání nastavení:"
+  },
+  "status_error_saving_settings": {
+    "message": "Chyba při ukládání nastavení:"
+  },
+  "status_settings_saved_refresh": {
+    "message": "Nastavení uloženo. Pro aplikaci změn obnovte otevřené karty."
+  },
+  "confirm_reset_settings": {
+    "message": "Obnovit výchozí hodnoty nastavení formátování?"
+  },
+  "status_error_resetting_settings": {
+    "message": "Chyba při resetování nastavení:"
+  },
+  "status_settings_reset_done": {
+    "message": "Nastavení bylo obnoveno na výchozí hodnoty."
+  },
+  "error_dialog_prefix": {
+    "message": "Chyba Web to Markdown:"
+  },
+  "tooltip_markdown_in_clipboard": {
+    "message": "Markdown ve schránce"
+  },
+  "error_turndown_unavailable": {
+    "message": "TurndownService není dostupný."
+  },
+  "error_page_body_not_found": {
+    "message": "Tělo stránky nebylo nalezeno."
+  },
+  "error_no_text_selected": {
+    "message": "Není vybrán žádný text."
+  },
+  "error_selection_content_not_found": {
+    "message": "Obsah výběru nebyl nalezen."
+  },
+  "error_ai_chat_content_not_found": {
+    "message": "Obsah AI chatu nebyl nalezen."
+  },
+  "error_ai_response_not_found": {
+    "message": "AI odpověď z kliknutého prvku nebyla nalezena."
+  },
+  "error_unknown": {
+    "message": "neznámá chyba"
+  }
+}

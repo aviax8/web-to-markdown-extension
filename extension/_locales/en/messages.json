@@ -1,0 +1,104 @@
+{
+  "extension_name": {
+    "message": "Web to Markdown"
+  },
+  "extension_description": {
+    "message": "Copy page, selection, and AI content as Markdown from context menu"
+  },
+  "menu_root_title": {
+    "message": "Web to Markdown"
+  },
+  "menu_copy_page": {
+    "message": "Copy page as Markdown"
+  },
+  "menu_copy_selection": {
+    "message": "Copy selection as Markdown"
+  },
+  "menu_copy_ai_chat": {
+    "message": "Copy AI chat as Markdown"
+  },
+  "menu_copy_ai_response": {
+    "message": "Copy AI response as Markdown"
+  },
+  "locale_lang_tag": {
+    "message": "en"
+  },
+  "options_page_title": {
+    "message": "Web to Markdown - Settings"
+  },
+  "options_main_title": {
+    "message": "Web to Markdown"
+  },
+  "options_formatting_settings": {
+    "message": "Formatting Settings"
+  },
+  "options_markdown_output": {
+    "message": "Markdown Output"
+  },
+  "options_markdown_output_description": {
+    "message": "Configure texts used when converting AI conversations to markdown."
+  },
+  "options_request_header_text_label": {
+    "message": "Request Header Text"
+  },
+  "options_default": {
+    "message": "Default:"
+  },
+  "options_request_quote_prefix_label": {
+    "message": "User Request Quote Prefix"
+  },
+  "options_response_header_text_label": {
+    "message": "AI Response Header Text"
+  },
+  "options_save_settings": {
+    "message": "Save Settings"
+  },
+  "options_reset_to_default": {
+    "message": "Reset to Default"
+  },
+  "status_error_loading_settings": {
+    "message": "Error loading settings:"
+  },
+  "status_error_saving_settings": {
+    "message": "Error saving settings:"
+  },
+  "status_settings_saved_refresh": {
+    "message": "Settings saved. Refresh open tabs to apply changes."
+  },
+  "confirm_reset_settings": {
+    "message": "Reset formatting settings to default values?"
+  },
+  "status_error_resetting_settings": {
+    "message": "Error resetting settings:"
+  },
+  "status_settings_reset_done": {
+    "message": "Settings reset to defaults."
+  },
+  "error_dialog_prefix": {
+    "message": "Web to Markdown error:"
+  },
+  "tooltip_markdown_in_clipboard": {
+    "message": "Markdown in clipboard"
+  },
+  "error_turndown_unavailable": {
+    "message": "TurndownService is not available."
+  },
+  "error_page_body_not_found": {
+    "message": "Page body not found."
+  },
+  "error_no_text_selected": {
+    "message": "No text selected."
+  },
+  "error_selection_content_not_found": {
+    "message": "Selection content not found."
+  },
+  "error_ai_chat_content_not_found": {
+    "message": "AI chat content not found."
+  },
+  "error_ai_response_not_found": {
+    "message": "AI response not found from the clicked element."
+  },
+  "error_unknown": {
+    "message": "unknown error"
+  }
+}

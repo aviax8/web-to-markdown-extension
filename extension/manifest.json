@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Web to Markdown (dev)",
+  "name": "__MSG_extension_name__",
   "version": "1.0.0",
-  "description": "Copy page, selection, and AI content as Markdown from context menu",
+  "description": "__MSG_extension_description__",
+  "default_locale": "en",
   "author": "aviax8",
   "icons": {
     "16": "icons/icon16.png",
@@ -16,7 +17,10 @@
   },
   "host_permissions": [],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "i18n.js",
+      "background.js"
+    ]
   },
   "web_accessible_resources": [
   ],
@@ -27,6 +31,7 @@
     {
       "matches": ["<all_urls>"],
       "js": [
+        "i18n.js",
         "settings.js",
         "content.js",
         "turndown.js",
@@ -37,7 +42,7 @@
   ],
   "browser_specific_settings": {
     "gecko": {
-      "id": "web-to-markdown-dev@aviax8.dev",
+      "id": "web-to-markdown@aviax8.dev",
       "strict_min_version": "142.0",
       "data_collection_permissions": {
         "required": ["none"]

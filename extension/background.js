@@ -1,3 +1,9 @@
+if (!globalThis.i18n) {
+    throw new Error('i18nApi is not available.');
+}
+
+const t = globalThis.i18n.t;
+
 const MENU_ROOT = 'web-to-markdown';
 const MENU_COPY_PAGE = 'copy-page-as-markdown';
 const MENU_COPY_SELECTION = 'copy-selection-as-markdown';
@@ -14,35 +20,35 @@ function createContextMenu() {
     chrome.contextMenus.removeAll(() => {
         chrome.contextMenus.create({
             id: MENU_ROOT,
-            title: 'Web to Markdown',
+            title: t('menu_root_title', 'Web to Markdown'),
             contexts: ['all'],
             documentUrlPatterns: ['<all_urls>']
         });
         chrome.contextMenus.create({
             id: MENU_COPY_PAGE,
             parentId: MENU_ROOT,
-            title: 'Copy page as Markdown',
+            title: t('menu_copy_page', 'Copy page as Markdown'),
             contexts: ['page', 'selection'],
             documentUrlPatterns: ['<all_urls>']
         });
         chrome.contextMenus.create({
             id: MENU_COPY_SELECTION,
             parentId: MENU_ROOT,
-            title: 'Copy selection as Markdown',
+            title: t('menu_copy_selection', 'Copy selection as Markdown'),
             contexts: ['selection'],
             documentUrlPatterns: ['<all_urls>']
         });
         chrome.contextMenus.create({
             id: MENU_COPY_AI_CHAT,
             parentId: MENU_ROOT,
-            title: 'Copy AI chat as Markdown',
+            title: t('menu_copy_ai_chat', 'Copy AI chat as Markdown'),
             contexts: ['page', 'selection'],
             documentUrlPatterns: AI_DOCUMENT_URL_PATTERNS
         });
         chrome.contextMenus.create({
             id: MENU_COPY_AI_RESPONSE,
             parentId: MENU_ROOT,
-            title: 'Copy AI response as Markdown',
+            title: t('menu_copy_ai_response', 'Copy AI response as Markdown'),
             contexts: ['page', 'selection'],
             documentUrlPatterns: AI_DOCUMENT_URL_PATTERNS
         }, () => {
@@ -115,7 +121,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         }
 
         if (!response?.success) {
-            const errorMessage = response?.error || 'unknown error';
+            const errorMessage = response?.error || t('error_unknown', 'unknown error');
             console.error('[Web-to-Markdown] Action failed:', action, errorMessage);
             chrome.tabs.sendMessage(tab.id, {
                 action: 'showErrorDialog',

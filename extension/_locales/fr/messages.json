@@ -1,0 +1,104 @@
+{
+  "extension_name": {
+    "message": "Web to Markdown"
+  },
+  "extension_description": {
+    "message": "Copie la page, la sélection et le contenu IA en Markdown depuis le menu contextuel"
+  },
+  "menu_root_title": {
+    "message": "Web to Markdown"
+  },
+  "menu_copy_page": {
+    "message": "Copier la page en Markdown"
+  },
+  "menu_copy_selection": {
+    "message": "Copier la sélection en Markdown"
+  },
+  "menu_copy_ai_chat": {
+    "message": "Copier le chat IA en Markdown"
+  },
+  "menu_copy_ai_response": {
+    "message": "Copier la réponse IA en Markdown"
+  },
+  "locale_lang_tag": {
+    "message": "fr"
+  },
+  "options_page_title": {
+    "message": "Web to Markdown - Paramètres"
+  },
+  "options_main_title": {
+    "message": "Web to Markdown"
+  },
+  "options_formatting_settings": {
+    "message": "Paramètres de formatage"
+  },
+  "options_markdown_output": {
+    "message": "Sortie Markdown"
+  },
+  "options_markdown_output_description": {
+    "message": "Configurez les textes utilisés lors de la conversion des conversations IA en markdown."
+  },
+  "options_request_header_text_label": {
+    "message": "Texte d'en-tête de la requête"
+  },
+  "options_default": {
+    "message": "Par défaut :"
+  },
+  "options_request_quote_prefix_label": {
+    "message": "Préfixe de citation de la requête utilisateur"
+  },
+  "options_response_header_text_label": {
+    "message": "Texte d'en-tête de la réponse IA"
+  },
+  "options_save_settings": {
+    "message": "Enregistrer les paramètres"
+  },
+  "options_reset_to_default": {
+    "message": "Réinitialiser par défaut"
+  },
+  "status_error_loading_settings": {
+    "message": "Erreur lors du chargement des paramètres :"
+  },
+  "status_error_saving_settings": {
+    "message": "Erreur lors de l'enregistrement des paramètres :"
+  },
+  "status_settings_saved_refresh": {
+    "message": "Paramètres enregistrés. Actualisez les onglets ouverts pour appliquer les changements."
+  },
+  "confirm_reset_settings": {
+    "message": "Réinitialiser les paramètres de formatage aux valeurs par défaut ?"
+  },
+  "status_error_resetting_settings": {
+    "message": "Erreur lors de la réinitialisation des paramètres :"
+  },
+  "status_settings_reset_done": {
+    "message": "Les paramètres ont été réinitialisés aux valeurs par défaut."
+  },
+  "error_dialog_prefix": {
+    "message": "Erreur Web to Markdown :"
+  },
+  "tooltip_markdown_in_clipboard": {
+    "message": "Markdown dans le presse-papiers"
+  },
+  "error_turndown_unavailable": {
+    "message": "TurndownService n'est pas disponible."
+  },
+  "error_page_body_not_found": {
+    "message": "Corps de page introuvable."
+  },
+  "error_no_text_selected": {
+    "message": "Aucun texte sélectionné."
+  },
+  "error_selection_content_not_found": {
+    "message": "Contenu de la sélection introuvable."
+  },
+  "error_ai_chat_content_not_found": {
+    "message": "Contenu du chat IA introuvable."
+  },
+  "error_ai_response_not_found": {
+    "message": "Réponse IA introuvable à partir de l'élément cliqué."
+  },
+  "error_unknown": {
+    "message": "erreur inconnue"
+  }
+}

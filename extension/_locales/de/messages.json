@@ -1,0 +1,104 @@
+{
+  "extension_name": {
+    "message": "Web to Markdown"
+  },
+  "extension_description": {
+    "message": "Kopiert Seite, Auswahl und KI-Inhalte als Markdown aus dem Kontextmenü"
+  },
+  "menu_root_title": {
+    "message": "Web to Markdown"
+  },
+  "menu_copy_page": {
+    "message": "Seite als Markdown kopieren"
+  },
+  "menu_copy_selection": {
+    "message": "Auswahl als Markdown kopieren"
+  },
+  "menu_copy_ai_chat": {
+    "message": "KI-Chat als Markdown kopieren"
+  },
+  "menu_copy_ai_response": {
+    "message": "KI-Antwort als Markdown kopieren"
+  },
+  "locale_lang_tag": {
+    "message": "de"
+  },
+  "options_page_title": {
+    "message": "Web to Markdown - Einstellungen"
+  },
+  "options_main_title": {
+    "message": "Web to Markdown"
+  },
+  "options_formatting_settings": {
+    "message": "Formatierungseinstellungen"
+  },
+  "options_markdown_output": {
+    "message": "Markdown-Ausgabe"
+  },
+  "options_markdown_output_description": {
+    "message": "Konfigurieren Sie Texte, die bei der Umwandlung von KI-Konversationen in Markdown verwendet werden."
+  },
+  "options_request_header_text_label": {
+    "message": "Text für Anfrageüberschrift"
+  },
+  "options_default": {
+    "message": "Standard:"
+  },
+  "options_request_quote_prefix_label": {
+    "message": "Zitatpräfix für Benutzeranfrage"
+  },
+  "options_response_header_text_label": {
+    "message": "Text für KI-Antwortüberschrift"
+  },
+  "options_save_settings": {
+    "message": "Einstellungen speichern"
+  },
+  "options_reset_to_default": {
+    "message": "Auf Standard zurücksetzen"
+  },
+  "status_error_loading_settings": {
+    "message": "Fehler beim Laden der Einstellungen:"
+  },
+  "status_error_saving_settings": {
+    "message": "Fehler beim Speichern der Einstellungen:"
+  },
+  "status_settings_saved_refresh": {
+    "message": "Einstellungen gespeichert. Aktualisieren Sie offene Tabs, um Änderungen anzuwenden."
+  },
+  "confirm_reset_settings": {
+    "message": "Formatierungseinstellungen auf Standardwerte zurücksetzen?"
+  },
+  "status_error_resetting_settings": {
+    "message": "Fehler beim Zurücksetzen der Einstellungen:"
+  },
+  "status_settings_reset_done": {
+    "message": "Einstellungen wurden auf Standardwerte zurückgesetzt."
+  },
+  "error_dialog_prefix": {
+    "message": "Web to Markdown-Fehler:"
+  },
+  "tooltip_markdown_in_clipboard": {
+    "message": "Markdown in Zwischenablage"
+  },
+  "error_turndown_unavailable": {
+    "message": "TurndownService ist nicht verfügbar."
+  },
+  "error_page_body_not_found": {
+    "message": "Seiteninhalt nicht gefunden."
+  },
+  "error_no_text_selected": {
+    "message": "Kein Text ausgewählt."
+  },
+  "error_selection_content_not_found": {
+    "message": "Auswahlinhalt nicht gefunden."
+  },
+  "error_ai_chat_content_not_found": {
+    "message": "KI-Chat-Inhalt nicht gefunden."
+  },
+  "error_ai_response_not_found": {
+    "message": "KI-Antwort vom angeklickten Element nicht gefunden."
+  },
+  "error_unknown": {
+    "message": "unbekannter Fehler"
+  }
+}

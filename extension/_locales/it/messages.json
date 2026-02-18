@@ -1,0 +1,104 @@
+{
+  "extension_name": {
+    "message": "Web to Markdown"
+  },
+  "extension_description": {
+    "message": "Copia pagina, selezione e contenuti AI in Markdown dal menu contestuale"
+  },
+  "menu_root_title": {
+    "message": "Web to Markdown"
+  },
+  "menu_copy_page": {
+    "message": "Copia pagina come Markdown"
+  },
+  "menu_copy_selection": {
+    "message": "Copia selezione come Markdown"
+  },
+  "menu_copy_ai_chat": {
+    "message": "Copia chat AI come Markdown"
+  },
+  "menu_copy_ai_response": {
+    "message": "Copia risposta AI come Markdown"
+  },
+  "locale_lang_tag": {
+    "message": "it"
+  },
+  "options_page_title": {
+    "message": "Web to Markdown - Impostazioni"
+  },
+  "options_main_title": {
+    "message": "Web to Markdown"
+  },
+  "options_formatting_settings": {
+    "message": "Impostazioni di formattazione"
+  },
+  "options_markdown_output": {
+    "message": "Output Markdown"
+  },
+  "options_markdown_output_description": {
+    "message": "Configura i testi usati quando converti conversazioni AI in markdown."
+  },
+  "options_request_header_text_label": {
+    "message": "Testo intestazione richiesta"
+  },
+  "options_default": {
+    "message": "Predefinito:"
+  },
+  "options_request_quote_prefix_label": {
+    "message": "Prefisso citazione richiesta utente"
+  },
+  "options_response_header_text_label": {
+    "message": "Testo intestazione risposta AI"
+  },
+  "options_save_settings": {
+    "message": "Salva impostazioni"
+  },
+  "options_reset_to_default": {
+    "message": "Ripristina predefiniti"
+  },
+  "status_error_loading_settings": {
+    "message": "Errore durante il caricamento delle impostazioni:"
+  },
+  "status_error_saving_settings": {
+    "message": "Errore durante il salvataggio delle impostazioni:"
+  },
+  "status_settings_saved_refresh": {
+    "message": "Impostazioni salvate. Aggiorna le schede aperte per applicare le modifiche."
+  },
+  "confirm_reset_settings": {
+    "message": "Ripristinare i valori predefiniti delle impostazioni di formattazione?"
+  },
+  "status_error_resetting_settings": {
+    "message": "Errore durante il ripristino delle impostazioni:"
+  },
+  "status_settings_reset_done": {
+    "message": "Impostazioni ripristinate ai valori predefiniti."
+  },
+  "error_dialog_prefix": {
+    "message": "Errore Web to Markdown:"
+  },
+  "tooltip_markdown_in_clipboard": {
+    "message": "Markdown negli appunti"
+  },
+  "error_turndown_unavailable": {
+    "message": "TurndownService non è disponibile."
+  },
+  "error_page_body_not_found": {
+    "message": "Corpo della pagina non trovato."
+  },
+  "error_no_text_selected": {
+    "message": "Nessun testo selezionato."
+  },
+  "error_selection_content_not_found": {
+    "message": "Contenuto selezionato non trovato."
+  },
+  "error_ai_chat_content_not_found": {
+    "message": "Contenuto chat AI non trovato."
+  },
+  "error_ai_response_not_found": {
+    "message": "Risposta AI non trovata dall'elemento selezionato."
+  },
+  "error_unknown": {
+    "message": "errore sconosciuto"
+  }
+}

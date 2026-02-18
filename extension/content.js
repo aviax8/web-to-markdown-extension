@@ -6,6 +6,12 @@ if (!settingsApi) {
     throw new Error('WebToMarkdownSettings is not available.');
 }
 
+if (!globalThis.i18n) {
+    throw new Error('i18nApi is not available.');
+}
+
+const t = globalThis.i18n.t;
+
 let settings = null;
 
 let lastContextTarget = null;
@@ -89,7 +95,7 @@ function logError(...args) {
 }
 
 function showErrorDialog(message) {
-    window.alert(`Web to Markdown error:\n${message}`);
+    window.alert(`${t('error_dialog_prefix', 'Web to Markdown error:')}\n${message}`);
 }
 
 function showCopiedTooltip() {
@@ -98,7 +104,7 @@ function showCopiedTooltip() {
     if (!tooltip) {
         tooltip = document.createElement('div');
         tooltip.id = 'web-to-markdown-copied-tooltip';
-        tooltip.textContent = 'Markdown in clipboard';
+        tooltip.textContent = t('tooltip_markdown_in_clipboard', 'Markdown in clipboard');
         tooltip.style.position = 'fixed';
         tooltip.style.zIndex = '2147483647';
         tooltip.style.background = 'rgba(22, 22, 22, 0.92)';
@@ -346,7 +352,7 @@ function llamacppRules(turndownService) {
 
 function htmlToMarkdown(platform, element) {
     if (typeof TurndownService === 'undefined') {
-        throw new Error('TurndownService is not available.');
+        throw new Error(t('error_turndown_unavailable', 'TurndownService is not available.'));
     }
 
     const root = element.cloneNode(true);
@@ -402,14 +408,14 @@ async function writeElementAsMarkdown(platform, element, notFoundMessage) {
 
 async function copyPageAsMarkdown() {
     const platform = detectPlatform();
-    return writeElementAsMarkdown(platform, document.body, 'Page body not found.');
+    return writeElementAsMarkdown(platform, document.body, t('error_page_body_not_found', 'Page body not found.'));
 }
 
 async function copySelectionAsMarkdown() {
     const platform = detectPlatform();
     const selection = window.getSelection();
     if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
-        throw new Error('No text selected.');
+        throw new Error(t('error_no_text_selected', 'No text selected.'));
     }
 
     const selectedRoot = document.createElement('div');
@@ -417,19 +423,23 @@ async function copySelectionAsMarkdown() {
         selectedRoot.appendChild(selection.getRangeAt(i).cloneContents());
     }
 
-    return writeElementAsMarkdown(platform, selectedRoot, 'Selection content not found.');
+    return writeElementAsMarkdown(platform, selectedRoot, t('error_selection_content_not_found', 'Selection content not found.'));
 }
 
 async function copyAIChatAsMarkdown() {
     const platform = detectPlatform();
     const chatContent = platform.getAIChat(lastContextTarget);
-    return writeElementAsMarkdown(platform, chatContent, 'AI chat content not found.');
+    return writeElementAsMarkdown(platform, chatContent, t('error_ai_chat_content_not_found', 'AI chat content not found.'));
 }
 
 async function copyAIResponseAsMarkdown() {
     const platform = detectPlatform();
     const responseContent = platform.getAIResponse(lastContextTarget);
-    return writeElementAsMarkdown(platform, responseContent, 'AI response not found from the clicked element.');
+    return writeElementAsMarkdown(
+        platform,
+        responseContent,
+        t('error_ai_response_not_found', 'AI response not found from the clicked element.')
+    );
 }
 
 function initContextTargetTracking() {
@@ -449,7 +459,7 @@ function initMessageListener() {
 
     chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         if (message?.action === 'showErrorDialog') {
-            showErrorDialog(message.error || 'unknown error');
+            showErrorDialog(message.error || t('error_unknown', 'unknown error'));
             sendResponse({ success: true });
             return true;
         }
