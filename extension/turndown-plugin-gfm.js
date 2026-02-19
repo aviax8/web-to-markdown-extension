@@ -1,4 +1,4 @@
-var turndownPluginGfm = (function (exports) {
+var TurndownPluginGfm = (function (exports) {
 'use strict';
 
 const highlightRegExp = /highlight-(?:(?:text|source)-)?([a-z0-9]+)/;

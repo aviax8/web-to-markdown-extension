@@ -39,7 +39,7 @@
     "message": "Nastavte texty použité při převodu AI konverzací do markdownu."
   },
   "options_request_header_text_label": {
-    "message": "Text hlavičky dotazu"
+    "message": "Text hlavičky uživatelského dotazu"
   },
   "options_default": {
     "message": "Výchozí:"

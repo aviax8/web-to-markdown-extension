@@ -43,7 +43,7 @@ function localizeOptionsPage() {
         'options_markdown_output_description',
         'Configure texts used when converting AI conversations to markdown.'
     );
-    elements.requestHeaderLabel.textContent = t('options_request_header_text_label', 'Request Header Text');
+    elements.requestHeaderLabel.textContent = t('options_request_header_text_label', 'User Request Header Text');
     elements.requestHeaderDefault.textContent = t('options_request_header_default', 'Default:');
     elements.requestQuotePrefixLabel.textContent = t('options_request_quote_prefix_label', 'User Request Quote Prefix');
     elements.requestQuotePrefixDefault.textContent = t('options_request_quote_prefix_default', 'Default:');

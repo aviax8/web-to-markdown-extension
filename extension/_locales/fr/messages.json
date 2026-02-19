@@ -39,7 +39,7 @@
     "message": "Configurez les textes utilisés lors de la conversion des conversations IA en markdown."
   },
   "options_request_header_text_label": {
-    "message": "Texte d'en-tête de la requête"
+    "message": "Texte d'en-tête de la requête utilisateur"
   },
   "options_default": {
     "message": "Par défaut :"

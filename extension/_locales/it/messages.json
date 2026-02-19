@@ -39,7 +39,7 @@
     "message": "Configura i testi usati quando converti conversazioni AI in markdown."
   },
   "options_request_header_text_label": {
-    "message": "Testo intestazione richiesta"
+    "message": "Testo intestazione richiesta utente"
   },
   "options_default": {
     "message": "Predefinito:"

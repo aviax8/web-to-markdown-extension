@@ -18,11 +18,20 @@ let lastContextTarget = null;
 let lastContextPosition = { x: 0, y: 0 };
 let copiedTooltipTimeout = null;
 
+const EXTRA_TURNDOWN_ESCAPES = [
+    // strikethrough
+    [/~~/g, '\\~\\~'],
+    // tables
+    [/\|/g, '\\|'],
+    // katex
+    [/\$/g, '\\$']
+];
+
 const PLATFORM_CONFIG = {
     chatgpt: {
         detect: () => {
-            const hostname = window.location.hostname;
-            return (hostname.includes('chatgpt.com') || hostname.includes('openai.com'));
+            const location = window.location;
+            return (location.hostname.includes('chatgpt.com') || location.hostname.includes('openai.com') || location.pathname.includes('chatgpt.html'));
         },
         getAIChat: () => {
             return document.querySelector('main');
@@ -30,20 +39,27 @@ const PLATFORM_CONFIG = {
         getAIResponse: (clickedElement) => {
             return clickedElement?.closest('div[data-message-author-role="assistant"]') || null;
         },
+        preprocess: (root) => {
+            return chatgptPreprocess(root);
+        },
         addRules: (turndownService) => {
             chatgptRules(turndownService);
         },
     },
     gemini: {
         detect: () => {
-            const hostname = window.location.hostname;
-            return (hostname.includes('gemini.google.com'));
+            // testing also gemini.html for tests
+            const location = window.location;
+            return (location.hostname.includes('gemini.google.com') || location.pathname.includes('gemini.html'));
         },
         getAIChat: () => {
             return document.querySelector('#chat-history');
         },
         getAIResponse: (clickedElement) => {
             return clickedElement?.closest('message-content') || null;
+        },
+        preprocess: (root) => {
+            return geminiPreprocess(root);
         },
         addRules: (turndownService) => {
             geminiRules(turndownService);
@@ -60,15 +76,21 @@ const PLATFORM_CONFIG = {
         getAIResponse: (clickedElement) => {
             return clickedElement?.closest('div[role="group"]') || null;
         },
+        preprocess: (root) => {
+            return llamacppPreprocess(root);
+        },
         addRules: (turndownService) => {
             llamacppRules(turndownService);
         },
     },
     generic: {
         detect: () => false,
+        preprocess: (root) => root,
         getAIChat: () => null,
         getAIResponse: () => null,
-        addRules: () => null,
+        addRules: (turndownService) => {
+            commonRules(turndownService);
+        },
     },
 };
 
@@ -133,8 +155,69 @@ function showCopiedTooltip() {
     }, 1500);
 }
 
+
+function commonRules(turndownService) {
+    turndownService.addRule('ignoreUnwanted', {
+        filter: ['script', 'style', 'iframe'],
+        replacement: function () {
+            return '';
+        }
+    });
+
+    turndownService.addRule('katexMath', {
+        filter: function (node) {
+            return node.nodeName === 'SPAN' && node.classList.contains('katex');
+        },
+        replacement: function (_content, node) {
+            const mathAnnotation = node.querySelector('annotation[encoding="application/x-tex"]');
+            if (!mathAnnotation) {
+                return '';
+            }
+
+            const isDisplay = node.classList.contains('katex-display') || node.parentElement?.classList.contains('katex-display');
+            return isDisplay
+                ? '\n$$\n' + mathAnnotation.textContent + '\n$$\n\n'
+                : '$' + mathAnnotation.textContent + '$';
+        }
+    });
+
+    // add just one new line \n after <p> instead of two
+    turndownService.addRule('geminiNoBlankLines', {
+        filter: ['p'],
+        replacement: function (content, node) {
+            if (!node.nextSibling) {
+                return content;
+            }
+            if (node.nextSibling.nodeName === 'UL' || node.nextSibling.nodeName === 'OL') {
+                return content + '\n';
+            }
+            return content + '\n\n';
+        }
+    });
+}
+
+function chatgptPreprocess(root) {
+    // remapped <div class="whitespace-pre-wrap"> to <pre web-md="pre"> so that whitespace formatting is preserved
+    // turndown -> RootNode -> collapseWhitespace()
+    // <div class="whitespace-pre-wrap"> is used in User query
+    const preWrapDivs = root.querySelectorAll('div.whitespace-pre-wrap');
+    preWrapDivs.forEach((div) => {
+        const pre = document.createElement('pre');
+        pre.setAttribute('web-md', 'pre');
+        const code = document.createElement('code');
+        pre.appendChild(code);
+        while (div.firstChild) {
+            code.appendChild(div.firstChild);
+        }
+        div.replaceWith(pre);
+    });
+    return root;
+}
+
 function chatgptRules(turndownService) {
-    turndownService.addRule('skipChatGptReferenceSpans', {
+    commonRules(turndownService);
+
+    turndownService.addRule('gptSkipReferenceSpans', {
         filter: function (node) {
             return node.nodeName === 'SPAN' && (
                 (node.hasAttribute('data-state') && node.getAttribute('data-state') === 'closed') ||
@@ -145,9 +228,10 @@ function chatgptRules(turndownService) {
             return '';
         }
     });
+
     turndownService.addRule('gptPreCodeBlock', {
         filter: function (node) {
-            return node.nodeName === 'PRE' && !node.closest('code-block');
+            return node.nodeName === 'PRE' && !node.closest('code-block'); // && !node.closest('article[data-turn="user"]');
         },
         replacement: function (_content, node) {
             const codeElement = node.querySelector('code');
@@ -168,8 +252,32 @@ function chatgptRules(turndownService) {
         }
     });
 
-    // rule for user question header
-    turndownService.addRule('gptRequestHeader', {
+    // return <div class="whitespace-pre-wrap"> as is
+    // - used in User query, and remapped to <pre> in chatgptPreprocess()
+    turndownService.addRule('gptDivWhitespacePre', {
+        filter: function (node) {
+            return node.nodeName === 'PRE' && node.getAttribute('web-md') === 'pre';
+        },
+        replacement: function (content, _node) {
+            //~ return node.textContent + '\n\n';
+            return content;
+        }
+    });
+
+    // rule for quoted user question and its header
+    turndownService.addRule('gptRequest', {
+        filter: function (node) {
+            return node.nodeName === 'ARTICLE' && node.getAttribute('data-turn') === 'user';
+        },
+        replacement: function (content) {
+            const cleanedContent = content.trim();
+            const cleanedPre = '<pre>\n\n' + cleanedContent + '\n\n</pre>\n';
+            const quoted = cleanedPre.replace(/^/gm, settings.requestQuotePrefix);
+            return settings.requestHeaderText + quoted;
+        }
+    });
+
+    turndownService.addRule('gptIgnoreYouSaid', {
         filter: function (node) {
             return (
                 node.nodeName === 'H5' &&
@@ -178,18 +286,18 @@ function chatgptRules(turndownService) {
             );
         },
         replacement: function () {
-            return settings.requestHeaderText;
+            return '';
         }
     });
 
-    turndownService.addRule('gptRequestQuote', {
+    turndownService.addRule('gptIgnoreDisclaimer', {
         filter: function (node) {
-            return node.nodeName === 'ARTICLE' && node.getAttribute('data-turn') === 'user';
+            return (
+                node.nodeName === 'DIV' && node.getAttribute('id') === 'thread-bottom-container'
+            );
         },
-        replacement: function (content) {
-            const cleanedContent = content.trim();
-            const quoted = cleanedContent.replace(/^/gm, settings.requestQuotePrefix);
-            return '\n\n' + quoted + '\n\n';
+        replacement: function () {
+            return '';
         }
     });
 
@@ -206,9 +314,62 @@ function chatgptRules(turndownService) {
             return settings.responseHeaderText;
         }
     });
+
+}
+
+function geminiPreprocess(root) {
+    // replace \n inside <p> with <br/> ONLY if after that \n there is some non-whitespace text
+    const paragraphs = root.querySelectorAll('p');
+    paragraphs.forEach((p) => {
+        const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT, null);
+        const textNodes = [];
+
+        // collect text nodes first (TreeWalker is live)
+        while (walker.nextNode()) {
+            textNodes.push(walker.currentNode);
+        }
+
+        textNodes.forEach((textNode) => {
+            const s = textNode.nodeValue;
+            if (!s || !s.includes('\n')) return;
+
+            const frag = document.createDocumentFragment();
+
+            // split but keep \n as tokens
+            const tokens = s.split(/(\n)/);
+
+            for (let i = 0; i < tokens.length; i++) {
+                const t = tokens[i];
+
+                if (t === '\n') {
+                    // check if after this \n there is any non-whitespace text in the remaining tokens
+                    const rest = tokens.slice(i + 1).join('');
+                    if (/\S/.test(rest)) {
+                        frag.appendChild(document.createElement('br'));
+                    }
+                    // else: do nothing (drop trailing newline)
+                } else if (t.length) {
+                    frag.appendChild(document.createTextNode(t));
+                }
+            }
+
+            textNode.replaceWith(frag);
+        });
+    });
+
+    return root;
 }
 
 function geminiRules(turndownService) {
+    commonRules(turndownService);
+
+    turndownService.addRule('geminiIgnoreUnwanted', {
+        filter: ['button'],
+        replacement: function () {
+            return '';
+        }
+    });
+
     turndownService.addRule('geminiInlineMath', {
         filter: function (node) {
             return node.nodeName === 'SPAN' && node.classList.contains('math-inline');
@@ -250,28 +411,29 @@ function geminiRules(turndownService) {
             if (!codeContent) {
                 return '';
             }
-            return '```' + language + '\n' + codeContent.textContent + '\n```\n\n';
+            return '```' + language + '\n' + codeContent.textContent + '```\n\n';
         }
     });
 
-    // rule for "You said" -> # Question
-    turndownService.addRule('geminiRequestHeader', {
-        filter: function (node) {
-            return node.textContent.trim() === 'You said';
-        },
-        replacement: function () {
-            return settings.requestHeaderText;
-        }
-    });
-
-    turndownService.addRule('geminiRequestQuote', {
+    // rule for quoted user question and its header
+    turndownService.addRule('geminiRequest', {
         filter: function (node) {
             return node.classList && node.classList.contains('query-content');
         },
         replacement: function (content) {
             const cleanedContent = content.trim();
-            const quoted = cleanedContent.replace(/^/gm, settings.requestQuotePrefix);
-            return '\n\n' + quoted + '\n\n';
+            const cleanedPre = '<pre>\n\n' + cleanedContent + '\n\n</pre>\n';
+            const quoted = cleanedPre.replace(/^/gm, settings.requestQuotePrefix);
+            return settings.requestHeaderText + quoted;
+        }
+    });
+
+    turndownService.addRule('geminiIgnoreYouSaid', {
+        filter: function (node) {
+            return node.nodeName === 'SPAN' && node.classList.contains('cdk-visually-hidden') && node.textContent.trim() === 'You said';
+        },
+        replacement: function () {
+            return '';
         }
     });
 
@@ -295,7 +457,7 @@ function geminiRules(turndownService) {
     });
 
     // rule to skip standalone "description"
-    turndownService.addRule('geminiSkipDescription', {
+    turndownService.addRule('geminiIgnoreDescription', {
         filter: function (node) {
             return node.textContent.trim() === 'description';
         },
@@ -303,18 +465,59 @@ function geminiRules(turndownService) {
             return '';
         }
     });
+
+    // rule for Query lines -> returns original as is
+    turndownService.addRule('geminiRequest', {
+        filter: function (node) {
+            return node.nodeName === 'P' && node.closest('div.query-content');
+        },
+        replacement: function (_content, node) {
+            return (node.textContent?.length != 0) ? node.textContent + '\n' : ' \n';
+        }
+    });
+
+}
+
+function llamacppPreprocess(root) {
+    // remapped <span class="whitespace-pre-wrap"> to <pre web-md="pre"> so that whitespace formatting is preserved
+    // turndown -> RootNode -> collapseWhitespace()
+    // <span class="whitespace-pre-wrap"> is used in User query
+    const preWrapDivs = root.querySelectorAll('span.whitespace-pre-wrap');
+    preWrapDivs.forEach((div) => {
+        const pre = document.createElement('pre');
+        pre.setAttribute('web-md', 'pre');
+        while (div.firstChild) {
+            pre.appendChild(div.firstChild);
+        }
+        div.replaceWith(pre);
+    });
+    return root;
 }
 
 function llamacppRules(turndownService) {
+    commonRules(turndownService);
+
+    // return <span class="whitespace-pre-wrap"> as is
+    // - used in User query, and remapped to <pre> in llamacppPreprocess()
+    turndownService.addRule('llamacppSpanWhitespacePre', {
+        filter: function (node) {
+            return node.nodeName === 'PRE' && node.getAttribute('web-md') === 'pre';
+        },
+        replacement: function (_content, node) {
+            return node.textContent + '\n\n';
+        }
+    });
+
     // rule for quoted user question and its header
-    turndownService.addRule('llamacppRequestQuote', {
+    turndownService.addRule('llamacppRequest', {
         filter: function (node) {
             return node.nodeName === 'DIV' && node.getAttribute('aria-label') === 'User message with actions';
         },
         replacement: function (content) {
             const cleanedContent = content.trim();
-            const quoted = cleanedContent.replace(/^/gm, settings.requestQuotePrefix);
-            return settings.requestHeaderText + '\n\n' + quoted + '\n\n';
+            const cleanedPre = '<pre>\n\n' + cleanedContent + '\n\n</pre>\n';
+            const quoted = cleanedPre.replace(/^/gm, settings.requestQuotePrefix);
+            return settings.requestHeaderText + quoted;
         }
     });
 
@@ -348,6 +551,22 @@ function llamacppRules(turndownService) {
         }
     });
 
+    // rule to skip standalone "description"
+    turndownService.addRule('llamacppIgnoreInfoAndForm', {
+        filter: function (node) {
+            return (node.nodeName === 'DIV' &&
+                (
+                    node.classList.contains('info') ||
+                    node.classList.contains('chat-processing-info-container') ||
+                    node.classList.contains('conversation-chat-form')
+                )
+            );
+        },
+        replacement: function () {
+            return '';
+        }
+    });
+
 }
 
 function htmlToMarkdown(platform, element) {
@@ -356,44 +575,23 @@ function htmlToMarkdown(platform, element) {
     }
 
     const root = element.cloneNode(true);
+    const preprocessedRoot = platform.preprocess(root) || root;
 
     const turndownService = new TurndownService({
         headingStyle: 'atx',
         hr: '------------------------------------------------------------------------------------------------------------------------',
         codeBlockStyle: 'fenced',
         bulletListMarker: '*',
-        emDelimiter: '*'
+        emDelimiter: '*',
+        //...TurndownPluginExt.optionsSingleBlockNewLine()
     });
 
-    turndownService.use(turndownPluginGfm.gfm);
-
-    turndownService.addRule('ignoreUnwanted', {
-        filter: ['script', 'style', 'iframe'],
-        replacement: function () {
-            return '';
-        }
-    });
-
-    turndownService.addRule('katexMath', {
-        filter: function (node) {
-            return node.nodeName === 'SPAN' && node.classList.contains('katex');
-        },
-        replacement: function (_content, node) {
-            const mathAnnotation = node.querySelector('annotation[encoding="application/x-tex"]');
-            if (!mathAnnotation) {
-                return '';
-            }
-
-            const isDisplay = node.classList.contains('katex-display') || node.parentElement?.classList.contains('katex-display');
-            return isDisplay
-                ? '\n$$\n' + mathAnnotation.textContent + '\n$$\n\n'
-                : '$' + mathAnnotation.textContent + '$';
-        }
-    });
+    turndownService.use(TurndownPluginGfm.gfm);
+    turndownService.use(TurndownPluginExt.customEscapes(EXTRA_TURNDOWN_ESCAPES));
 
     platform.addRules(turndownService);
 
-    return turndownService.turndown(root).trim();
+    return turndownService.turndown(preprocessedRoot).trim();
 }
 
 async function writeElementAsMarkdown(platform, element, notFoundMessage) {

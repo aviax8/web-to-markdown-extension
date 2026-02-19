@@ -39,7 +39,7 @@
     "message": "Configure texts used when converting AI conversations to markdown."
   },
   "options_request_header_text_label": {
-    "message": "Request Header Text"
+    "message": "User Request Header Text"
   },
   "options_default": {
     "message": "Default:"

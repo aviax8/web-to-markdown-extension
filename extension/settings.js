@@ -5,7 +5,7 @@
     const STORAGE_KEY = 'markdownFormatSettings';
 
     const DEFAULT_FORMAT_SETTINGS = Object.freeze({
-        requestHeaderText: '\n\n# Question\n\n',
+        requestHeaderText: '> \n> \n> # Question\n> \n',
         requestQuotePrefix: '> ',
         responseHeaderText: '\n\n## Answer\n\n'
     });
