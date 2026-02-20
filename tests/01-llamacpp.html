@@ -1,0 +1,315 @@
+<!doctype html>
+<html>
+<head>
+<title>llama.cpp</title>
+</head>
+  <body>
+
+<div style="display: contents">
+
+<section aria-live="polite" aria-relevant="additions text" aria-atomic="false" class="svelte-nbs0zk" tabindex="-1" aria-label="Notifications alt+T">
+  <!---->
+</section>
+<!---->
+<!---->
+<!---->
+<!---->
+<!---->
+<!---->
+<!---->
+<div data-slot="sidebar-wrapper" style="--sidebar-width: 18rem; --sidebar-width-icon: 3rem;" class="group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar">
+  <div class="flex h-screen w-full" style="height: 1318px;">
+    <!---->
+    <!---->
+    <div class="group peer hidden text-sidebar-foreground md:block" data-slot="sidebar" data-state="expanded" data-collapsible="" data-variant="sidebar" data-side="left">
+      <div data-slot="sidebar-gap" class="relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180 group-data-[collapsible=icon]:w-(--sidebar-width-icon)"></div>
+      <div data-slot="sidebar-container" class="fixed inset-y-0 z-999 hidden w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:z-0 md:flex left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] group-data-[collapsible=icon]:w-(--sidebar-width-icon) h-full">
+        <div data-sidebar="sidebar" data-slot="sidebar-inner" class="flex h-full w-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm">
+          <!---->
+          <!---->
+          <!---->
+          <div data-slot="scroll-area" class="relative h-[100vh]" id="bits-c1" dir="ltr" style="position: relative; --bits-scroll-area-corner-height: 0px; --bits-scroll-area-corner-width: 0px;" data-scroll-area-root="">
+            <!---->
+            <div data-slot="scroll-area-viewport" class="size-full rounded-[inherit] ring-ring/10 outline-ring/50 transition-[color,box-shadow] focus-visible:ring-4 focus-visible:outline-1 dark:ring-ring/20 dark:outline-ring/40" id="bits-c2" style="overflow: hidden scroll;" data-scroll-area-viewport="">
+              <div id="bits-1" data-scroll-area-content="" style="">
+                <!---->
+                <!---->
+                <div data-slot="sidebar-header" data-sidebar="header" class="flex flex-col p-2 top-0 z-10 gap-6 bg-sidebar/50 px-4 py-4 pb-2 backdrop-blur-lg md:sticky">
+                  <a href="#/">
+                    <h1 class="inline-flex items-center gap-1 px-2 text-xl font-semibold">llama.cpp</h1>
+                  </a>
+                  <div class="space-y-0.5">
+                    <!---->
+                    <!---->
+                    <a data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:text-accent-foreground hover:bg-muted-foreground/10 h-9 px-4 py-2 has-[&gt;svg]:px-3 w-full justify-between hover:[&amp;&gt;kbd]:opacity-100 svelte-1q39rn8" href="http://127.0.0.1:8080/?new_chat=true#/">
+                      <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-square-pen h-4 w-4">
+                          <!---->
+                          <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                          <!---->
+                          <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"></path>
+                          <!---->
+                          <!---->
+                          <!---->
+                        </svg>
+                        <!----> New chat
+                      </div>
+                      <kbd class="px-1 pointer-events-none inline-flex select-none items-center gap-0.5 font-sans text-md font-medium opacity-0 transition-opacity -my-1 text-muted-foreground ">
+                        <!---->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-arrow-big-up h-1 w-1  -mr-1">
+                          <!---->
+                          <path d="M9 18v-6H5l7-7 7 7h-4v6H9z"></path>
+                          <!---->
+                          <!---->
+                          <!---->
+                        </svg>
+                        <!---->
+                        <span></span>
+                        <!---->
+                        <!---->
+                        <!---->
+                        <span>⌘</span>
+                        <!---->
+                        <span></span>
+                        <!---->
+                        <!---->
+                        <!---->O
+                        <!---->
+                        <!---->
+                      </kbd>
+                      <!---->
+                      <!---->
+                    </a>
+                    <!---->
+                    <!---->
+                    <button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:text-accent-foreground hover:bg-muted-foreground/10 h-9 px-4 py-2 has-[&gt;svg]:px-3 w-full justify-between hover:[&amp;&gt;kbd]:opacity-100 svelte-1q39rn8" type="button">
+                      <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-search h-4 w-4">
+                          <!---->
+                          <path d="m21 21-4.34-4.34"></path>
+                          <!---->
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <!---->
+                          <!---->
+                          <!---->
+                        </svg>
+                        <!----> Search conversations
+                      </div>
+                      <kbd class="px-1 pointer-events-none inline-flex select-none items-center gap-0.5 font-sans text-md font-medium opacity-0 transition-opacity -my-1 text-muted-foreground ">
+                        <!---->
+                        <!---->
+                        <span>⌘</span>
+                        <!---->
+                        <span></span>
+                        <!---->
+                        <!---->
+                        <!---->K
+                        <!---->
+                        <!---->
+                      </kbd>
+                      <!---->
+                      <!---->
+                    </button>
+                    <!---->
+                    <!---->
+                  </div>
+                  <!---->
+                  <!---->
+                </div>
+                <!---->
+                <div data-slot="sidebar-group" data-sidebar="group" class="relative flex w-full min-w-0 flex-col mt-4 space-y-2 p-0 px-4">
+                  <!---->
+                  <!---->
+                  <!---->
+                  <div class="text-sidebar-foreground/70 ring-sidebar-ring outline-hidden flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&amp;&gt;svg]:size-4 [&amp;&gt;svg]:shrink-0 group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0" data-slot="sidebar-group-label" data-sidebar="group-label">Conversations
+                    <!---->
+                  </div>
+                  <!---->
+                  <div data-slot="sidebar-group-content" data-sidebar="group-content" class="w-full text-sm">
+                    <!---->
+                    <ul data-slot="sidebar-menu" data-sidebar="menu" class="flex w-full min-w-0 flex-col gap-1">
+                      <!---->
+                      <!---->
+                      <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative mb-1">
+                        <button class="group flex min-h-9 w-full cursor-pointer items-center justify-between space-x-3 rounded-lg px-3 py-1.5 text-left transition-colors hover:bg-foreground/10 bg-foreground/5 text-accent-foreground svelte-76ksb2">
+                          <div class="flex min-w-0 flex-1 items-center gap-2">
+                            <!---->
+                            <span class="truncate text-sm font-medium">This text is in Markdown format. Sum: $y = \sigma(\sum w_i x_i + b)$</span>
+                          </div>
+                          <!---->
+                        </button>
+                        <!---->
+                      </li>
+                      <!---->
+                      <!---->
+                    </ul>
+                    <!---->
+                  </div>
+                  <!---->
+                  <!---->
+                </div>
+                <!---->
+                <!---->
+              </div>
+            </div>
+            <!---->
+            <!---->
+          </div>
+          <!---->
+        </div>
+      </div>
+    </div>
+    <!---->
+    <!---->
+    <!---->
+    <button data-slot="sidebar-trigger" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:text-accent-foreground hover:bg-muted-foreground/10 size-9 rounded-full backdrop-blur-lg transition-left absolute left-0 z-[900] h-8 w-8 duration-200 ease-linear md:left-[var(--sidebar-width)] h-9! w-9! svelte-1q39rn8" type="button" data-sidebar="trigger" style="translate: 1rem 1rem;">
+      <!---->
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-panel-left">
+        <!---->
+        <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+        <!---->
+        <path d="M9 3v18"></path>
+        <!---->
+        <!---->
+        <!---->
+      </svg>
+      <!---->
+      <span class="sr-only">Toggle Sidebar</span>
+      <!---->
+    </button>
+    <!---->
+
+<main data-slot="sidebar-inset" class="relative w-full md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2 flex flex-1 flex-col overflow-hidden"><!----><!----><!----><!----><!----> <header class="md:background-transparent pointer-events-none fixed top-0 right-0 left-0 z-50 flex items-center justify-end bg-background/40 p-4 backdrop-blur-xl duration-200 ease-linear md:left-[var(--sidebar-width)]"><div class="pointer-events-auto flex items-center space-x-2"><!----><button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center whitespace-nowrap text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:text-accent-foreground hover:bg-muted-foreground/10 h-8 gap-1.5 rounded-md px-3 has-[&gt;svg]:px-2.5 svelte-1q39rn8" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-settings h-4 w-4"><!----><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><!----><circle cx="12" cy="12" r="3"></circle><!----><!----><!----></svg><!----></button><!----></div></header> <!----><!----><!----><!----><!----><!----><!----> <div aria-label="Chat interface with file drop zone" class="flex h-full flex-col overflow-y-auto px-4 md:px-6" role="main"><div style="height: auto; " class="flex h-full flex-col space-y-10 pt-16 md:pt-24 mb-16 md:mb-24"><!----><!----><div aria-label="User message with actions" role="group" class="group flex flex-col items-end gap-3 md:gap-2 mx-auto w-full max-w-[48rem]"><!----><!----> <div data-slot="card" class="flex flex-col gap-6 shadow-sm border border-border/30 focus-within:border-border dark:border-border/20 dark:focus-within:border-border max-w-[80%] rounded-[1.125rem] border-none bg-primary px-3.75 py-1.5 text-primary-foreground data-[multiline]:py-2.5" data-multiline=""><!----><span class="text-md whitespace-pre-wrap">This text is in Markdown format.
+Display it in your answer.
+
+A paragraph1. line1.
+A paragraph1. line2.
+
+A paragraph2. line1.
+A paragraph2. line2.
+
+**Bold**
+
+_Italics_
+
+~~Strikethrough~~
+
+Bullet list:
+* Item A
+    * Subitem A.a paragraph1. line1.
+      Subitem A.a paragraph1. line2.
+
+      Subitem A.a paragraph2. line1.
+      Subitem A.a paragraph2. line2.
+* Item B
+    ```
+    subcode block
+    ```
+* Item C
+
+Numbered list:
+* Item 1
+    * Subitem 1.1
+* Item 2
+* Item 3
+
+Code block:
+```json
+"object1": {
+    "property1": "value1",
+    "property2": "value2",
+  }
+}
+```
+
+Table:
+| Column 1  | Column 2   |
+| --------- | ----------:|
+| value 1.1 | value 1.2  |
+| long value 2.1  | long value 2.2  |
+
+
+Matrix:
+$\begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}$
+
+Sum:
+$y = \sigma(\sum w_i x_i + b)$</span><!----></div><!----> <div class="max-w-[80%]"><div class="relative  flex h-6 items-center justify-between"><div class="right-0 flex items-center gap-2 opacity-100 transition-opacity"><!----> <div class="pointer-events-auto inset-0 flex items-center gap-1 opacity-100 transition-all duration-150"><!----><!----><!----><!----><!----><!----><!----><button data-slot="tooltip-trigger" id="bits-c77" data-state="closed" data-delay-duration="500" data-tooltip-trigger="" tabindex="0" type="button"><!----><button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive shrink-0 items-center justify-center whitespace-nowrap text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:text-accent-foreground hover:bg-muted-foreground/10 gap-1.5 rounded-md has-[&gt;svg]:px-2.5 h-6 w-6 p-0 flex svelte-1q39rn8" type="button" aria-label="Copy"><!----><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-copy h-3 w-3"><!----><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><!----><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path><!----><!----><!----></svg><!----></button><!----></button><!----> <!----><!----><!----><!----><!----> <!----><!----><!----><!----><!----><!----><!----><button data-slot="tooltip-trigger" id="bits-c78" data-state="closed" data-delay-duration="500" data-tooltip-trigger="" tabindex="0" type="button"><!----><button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive shrink-0 items-center justify-center whitespace-nowrap text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:text-accent-foreground hover:bg-muted-foreground/10 gap-1.5 rounded-md has-[&gt;svg]:px-2.5 h-6 w-6 p-0 flex svelte-1q39rn8" type="button" aria-label="Edit"><!----><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-square-pen h-3 w-3"><!----><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><!----><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"></path><!----><!----><!----></svg><!----></button><!----></button><!----> <!----><!----><!----><!----><!----> <!----> <!----> <!----><!----><!----><!----><!----><!----><!----><button data-slot="tooltip-trigger" id="bits-c79" data-state="closed" data-delay-duration="500" data-tooltip-trigger="" tabindex="0" type="button"><!----><button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive shrink-0 items-center justify-center whitespace-nowrap text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:text-accent-foreground hover:bg-muted-foreground/10 gap-1.5 rounded-md has-[&gt;svg]:px-2.5 h-6 w-6 p-0 flex svelte-1q39rn8" type="button" aria-label="Delete"><!----><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-trash-2 h-3 w-3"><!----><path d="M3 6h18"></path><!----><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><!----><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><!----><line x1="10" x2="10" y1="11" y2="17"></line><!----><line x1="14" x2="14" y1="11" y2="17"></line><!----><!----><!----></svg><!----></button><!----></button><!----> <!----><!----><!----><!----><!----></div></div> <!----></div> <!----><!----><!----><!----><!----><!----><!----></div><!----><!----></div><!----><!----><div role="group" aria-label="Assistant message with actions" class="text-md group w-full leading-7.5 mx-auto w-full max-w-[48rem] svelte-14103tf"><!----><!----><!----><div data-slot="collapsible" class="mb-6 " id="bits-c115" data-state="closed" data-collapsible-root=""><div data-slot="card" class="flex flex-col rounded-xl text-card-foreground shadow-sm border focus-within:border-border dark:border-border/20 dark:focus-within:border-border gap-0 border-muted bg-muted/30 py-0"><!----><!----><!----><button data-slot="collapsible-trigger" class="flex cursor-pointer items-center justify-between p-3" id="bits-c116" type="button" aria-expanded="false" data-state="closed" data-collapsible-trigger="" aria-controls="bits-c117"><div class="flex items-center gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-brain h-4 w-4"><!----><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path><!----><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path><!----><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path><!----><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"></path><!----><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"></path><!----><path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path><!----><path d="M19.938 10.5a4 4 0 0 1 .585.396"></path><!----><path d="M6 18a4 4 0 0 1-1.967-.516"></path><!----><path d="M19.967 17.484A4 4 0 0 1 18 18"></path><!----><!----><!----></svg><!----> <span class="text-sm font-medium">Reasoning</span></div> <div class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center whitespace-nowrap text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:bg-muted-foreground/10 gap-1.5 rounded-md has-[&gt;svg]:px-2.5 h-6 w-6 p-0 text-muted-foreground hover:text-foreground"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-chevrons-up-down h-4 w-4"><!----><path d="m7 15 5 5 5-5"></path><!----><path d="m7 9 5-5 5 5"></path><!----><!----><!----></svg><!----> <span class="sr-only">Toggle reasoning content</span></div><!----></button><!----> <!----><!----><div data-slot="collapsible-content" id="bits-c117" style="--bits-collapsible-content-height: 6011.5px; --bits-collapsible-content-width: 766px;" data-state="closed" data-collapsible-content="" hidden=""><div class="border-t border-muted px-3 pb-3"><div class="pt-3"><div class="text-xs leading-relaxed break-words whitespace-pre-wrap">We have a user message that says: "This text is in Markdown format. Display it in your answer."
+
+
+Thus, the final answer will be the block. No explanation.
+
+We need to be careful about the code block for Item B: It's nested within the bullet list, but we need to preserve the indentation. That is okay.
+
+Thus, let's produce the final answer.</div></div></div><!----></div><!----><!----></div><!----></div><!----> <!----> <!----><!----><div class="svelte-1k219gf"><div class="markdown-block svelte-1k219gf" data-block-id="hast-0-41"><p>A paragraph1. line1.<br>
+A paragraph1. line2.</p><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-1">
+<!----></div><div class="markdown-block svelte-1k219gf" data-block-id="hast-43-84"><p>A paragraph2. line1.<br>
+A paragraph2. line2.</p><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-3">
+<!----></div><div class="markdown-block svelte-1k219gf" data-block-id="hast-86-94"><p><strong>Bold</strong></p><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-5">
+<!----></div><div class="markdown-block svelte-1k219gf" data-block-id="hast-96-105"><p><em>Italics</em></p><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-7">
+<!----></div><div class="markdown-block svelte-1k219gf" data-block-id="hast-107-124"><p><del>Strikethrough</del></p><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-9">
+<!----></div><div class="markdown-block svelte-1k219gf" data-block-id="hast-126-138"><p>Bullet list:</p><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-11">
+<!----></div><div class="markdown-block svelte-1k219gf" data-block-id="hast-139-348"><ul>
+<li>Item A
+<ul>
+<li>
+<p>Subitem A.a paragraph1. line1.<br>
+Subitem A.a paragraph1. line2.</p>
+<p>Subitem A.a paragraph2. line1.<br>
+Subitem A.a paragraph2. line2.</p>
+</li>
+</ul>
+</li>
+<li>Item B
+<div class="code-block-wrapper relative"><div class="code-block-header"><span class="code-language">text</span><div class="code-block-actions"><button class="copy-code-btn" data-code-id="code-13" title="Copy code" type="button" data-listener-bound="true"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-icon lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></span></button></div></div><div class="code-block-scroll-container"><pre><code data-code-id="code-13">subcode block
+</code></pre></div></div>
+</li>
+<li>Item C</li>
+</ul><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-13">
+<!----></div><div class="markdown-block svelte-1k219gf" data-block-id="hast-350-364"><p>Numbered list:</p><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-15">
+<!----></div><div class="markdown-block svelte-1k219gf" data-block-id="hast-365-409"><ul>
+<li>Item 1
+<ul>
+<li>Subitem 1.1</li>
+</ul>
+</li>
+<li>Item 2</li>
+<li>Item 3</li>
+</ul><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-17">
+<!----></div><div class="markdown-block svelte-1k219gf" data-block-id="hast-411-422"><p>Code block:</p><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-19">
+<!----></div><div class="markdown-block svelte-1k219gf" data-block-id="element-20"><div class="code-block-wrapper relative"><div class="code-block-header"><span class="code-language">json</span><div class="code-block-actions"><button class="copy-code-btn" data-code-id="code-107" title="Copy code" type="button" data-listener-bound="true"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-icon lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></span></button></div></div><div class="code-block-scroll-container"><pre><code class="hljs language-json" data-code-id="code-107"><span class="hljs-attr">"object1"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"property1"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"value1"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"property2"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"value2"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre></div></div><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-21">
+<!----></div><div class="markdown-block svelte-1k219gf" data-block-id="hast-509-515"><p>Table:</p><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-23">
+<!----></div><div class="markdown-block svelte-1k219gf" data-block-id="hast-516-634"><table>
+<thead>
+<tr>
+<th>Column 1</th>
+<th align="right">Column 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value 1.1</td>
+<td align="right">value 1.2</td>
+</tr>
+<tr>
+<td>long value 2.1</td>
+<td align="right">long value 2.2</td>
+</tr>
+</tbody>
+</table><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-25">
+<!----></div><div class="markdown-block svelte-1k219gf" data-block-id="hast-636-690"><p>Matrix:<br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">(</mo><mtable rowspacing="0.16em" columnalign="center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr></mtable><mo fence="true">)</mo></mrow><annotation encoding="application/x-tex">\begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span></span></span></span></p><!----></div><div class="markdown-block svelte-1k219gf" data-block-id="text-27">
+<!----></div><!----> <div class="markdown-block markdown-block--unstable svelte-1k219gf" data-block-id="unstable"><p>Sum:<br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>σ</mi><mo stretchy="false">(</mo><mo>∑</mo><msub><mi>w</mi><mi>i</mi></msub><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">y = \sigma(\sum w_i x_i + b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">b</span><span class="mclose">)</span></span></span></span></p><!----></div><!----></div> <!----><!----><!----><!----><!----><!----> <div class="info my-6 grid gap-4 tabular-nums"><div class="inline-flex flex-wrap items-start gap-2 text-xs text-muted-foreground"><div class="relative inline-flex flex-col items-end gap-1"><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><button data-slot="popover-trigger" class="inline-flex cursor-pointer items-center gap-1.5 rounded-sm bg-muted-foreground/10 px-1.5 py-1 text-xs transition hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 text-foreground" style="max-width: min(100cqw - 6.5rem, 32rem);" id="bits-c97" aria-haspopup="dialog" aria-expanded="false" data-state="closed" data-popover-trigger="" type="button"><!----><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-package h-3.5 w-3.5"><!----><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path><!----><path d="M12 22V12"></path><!----><polyline points="3.29 7 12 12 20.71 7"></polyline><!----><path d="m7.5 4.27 9 5.15"></path><!----><!----><!----></svg><!----> <span class="truncate font-medium">gpt-oss-20b-high</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-chevron-down h-3 w-3.5"><!----><path d="m6 9 6 6 6-6"></path><!----><!----><!----></svg><!----><!----></button><!----> <!----><!----><!----><!----></div> <!----><!----> <div class="inline-flex items-center text-xs text-muted-foreground"><div class="inline-flex items-center rounded-sm bg-muted-foreground/15 p-0.5"><!----><!----><!----><!----><!----><!----><!----><button data-slot="tooltip-trigger" id="bits-c118" data-state="closed" data-delay-duration="500" data-tooltip-trigger="" tabindex="0" type="button"><button type="button" class="inline-flex h-5 w-5 items-center justify-center rounded-sm transition-colors hover:text-foreground"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-book-open-text h-3 w-3"><!----><path d="M12 7v14"></path><!----><path d="M16 12h2"></path><!----><path d="M16 8h2"></path><!----><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path><!----><path d="M6 12h2"></path><!----><path d="M6 8h2"></path><!----><!----><!----></svg><!----> <span class="sr-only">Reading</span></button><!----></button><!----> <!----><!----><!----><!----><!----> <!----><!----><!----><!----><!----><!----><button data-slot="tooltip-trigger" id="bits-c119" data-state="closed" data-delay-duration="500" data-tooltip-trigger="" tabindex="0" type="button"><button type="button" class="inline-flex h-5 w-5 items-center justify-center rounded-sm transition-colors bg-background text-foreground shadow-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-sparkles h-3 w-3"><!----><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><!----><path d="M20 3v4"></path><!----><path d="M22 5h-4"></path><!----><path d="M4 17v2"></path><!----><path d="M5 18H3"></path><!----><!----><!----></svg><!----> <span class="sr-only">Generation</span></button><!----></button><!----> <!----><!----><!----><!----><!----></div> <div class="flex items-center gap-1 px-2"><!----><!----><!----><!----><!----><!----><!----><!----><!----><button data-slot="tooltip-trigger" id="bits-c120" data-state="closed" data-delay-duration="500" data-tooltip-trigger="" tabindex="0" type="button"><button class="inline-flex cursor-pointer items-center gap-1 rounded-sm px-1.5 py-0.75 bg-transparent"><!----><!----><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-whole-word h-3 w-3"><!----><circle cx="7" cy="12" r="3"></circle><!----><path d="M10 9v6"></path><!----><circle cx="17" cy="12" r="3"></circle><!----><path d="M14 7v8"></path><!----><path d="M22 17v1c0 .5-.5 1-1 1H3c-.5 0-1-.5-1-1v-1"></path><!----><!----><!----></svg><!----> 3,037 tokens<!----></button><!----></button><!----> <!----><!----><!----><!----><!----> <!----><!----><!----><!----><!----><!----><!----><!----><button data-slot="tooltip-trigger" id="bits-c121" data-state="closed" data-delay-duration="500" data-tooltip-trigger="" tabindex="0" type="button"><button class="inline-flex cursor-pointer items-center gap-1 rounded-sm px-1.5 py-0.75 bg-transparent"><!----><!----><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-clock h-3 w-3"><!----><circle cx="12" cy="12" r="10"></circle><!----><polyline points="12 6 12 12 16 14"></polyline><!----><!----><!----></svg><!----> 88.12s<!----></button><!----></button><!----> <!----><!----><!----><!----><!----> <!----><!----><!----><!----><!----><!----><!----><!----><button data-slot="tooltip-trigger" id="bits-c122" data-state="closed" data-delay-duration="500" data-tooltip-trigger="" tabindex="0" type="button"><button class="inline-flex cursor-pointer items-center gap-1 rounded-sm px-1.5 py-0.75 bg-transparent"><!----><!----><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-gauge h-3 w-3"><!----><path d="m12 14 4-4"></path><!----><path d="M3.34 19a10 10 0 1 1 17.32 0"></path><!----><!----><!----></svg><!----> 34.47 tokens/s<!----></button><!----></button><!----> <!----><!----><!----><!----><!----><!----></div></div><!----></div><!----> <!----></div> <div class="relative mt-2 flex h-6 items-center justify-between"><div class="left-0 flex items-center gap-2 opacity-100 transition-opacity"><!----> <div class="pointer-events-auto inset-0 flex items-center gap-1 opacity-100 transition-all duration-150"><!----><!----><!----><!----><!----><!----><!----><button data-slot="tooltip-trigger" id="bits-c85" data-state="closed" data-delay-duration="500" data-tooltip-trigger="" tabindex="0" type="button"><!----><button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive shrink-0 items-center justify-center whitespace-nowrap text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:text-accent-foreground hover:bg-muted-foreground/10 gap-1.5 rounded-md has-[&gt;svg]:px-2.5 h-6 w-6 p-0 flex svelte-1q39rn8" type="button" aria-label="Copy"><!----><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-copy h-3 w-3"><!----><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><!----><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path><!----><!----><!----></svg><!----></button><!----></button><!----> <!----><!----><!----><!----><!----> <!----><!----><!----><!----><!----><!----><!----><button data-slot="tooltip-trigger" id="bits-c86" data-state="closed" data-delay-duration="500" data-tooltip-trigger="" tabindex="0" type="button"><!----><button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive shrink-0 items-center justify-center whitespace-nowrap text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:text-accent-foreground hover:bg-muted-foreground/10 gap-1.5 rounded-md has-[&gt;svg]:px-2.5 h-6 w-6 p-0 flex svelte-1q39rn8" type="button" aria-label="Edit"><!----><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-square-pen h-3 w-3"><!----><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><!----><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"></path><!----><!----><!----></svg><!----></button><!----></button><!----> <!----><!----><!----><!----><!----> <!----><!----><!----><!----><!----><!----><!----><button data-slot="tooltip-trigger" id="bits-c87" data-state="closed" data-delay-duration="500" data-tooltip-trigger="" tabindex="0" type="button"><!----><button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive shrink-0 items-center justify-center whitespace-nowrap text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:text-accent-foreground hover:bg-muted-foreground/10 gap-1.5 rounded-md has-[&gt;svg]:px-2.5 h-6 w-6 p-0 flex svelte-1q39rn8" type="button" aria-label="Regenerate"><!----><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-refresh-cw h-3 w-3"><!----><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><!----><path d="M21 3v5h-5"></path><!----><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><!----><path d="M8 16H3v5"></path><!----><!----><!----></svg><!----></button><!----></button><!----> <!----><!----><!----><!----><!----> <!----> <!----><!----><!----><!----><!----><!----><!----><button data-slot="tooltip-trigger" id="bits-c88" data-state="closed" data-delay-duration="500" data-tooltip-trigger="" tabindex="0" type="button"><!----><button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive shrink-0 items-center justify-center whitespace-nowrap text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 hover:text-accent-foreground hover:bg-muted-foreground/10 gap-1.5 rounded-md has-[&gt;svg]:px-2.5 h-6 w-6 p-0 flex svelte-1q39rn8" type="button" aria-label="Delete"><!----><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-trash-2 h-3 w-3"><!----><path d="M3 6h18"></path><!----><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><!----><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><!----><line x1="10" x2="10" y1="11" y2="17"></line><!----><line x1="14" x2="14" y1="11" y2="17"></line><!----><!----><!----></svg><!----></button><!----></button><!----> <!----><!----><!----><!----><!----></div></div> <!----></div> <!----><!----><!----><!----><!----><!----><!----></div></div><!----> <div class="pointer-events-none sticky right-0 bottom-0 left-0 mt-auto"><div class="chat-processing-info-container pointer-events-none svelte-1ktvj8d visible"><div class="chat-processing-info-content svelte-1ktvj8d"><span class="chat-processing-info-detail pointer-events-auto svelte-1ktvj8d">Context: 3384/9216 (37%)</span><span class="chat-processing-info-detail pointer-events-auto svelte-1ktvj8d">Output: 3037/∞</span><span class="chat-processing-info-detail pointer-events-auto svelte-1ktvj8d">34.5 t/s</span></div></div><!----> <!----> <div class="conversation-chat-form pointer-events-auto rounded-t-3xl pb-4 svelte-lwk0qk"><!----><input type="file" multiple="" class="hidden "><!----> <form data-slot="chat-form" class="
+    bg-muted/70 dark:bg-muted/85
+    border border-border/30 focus-within:border-border  dark:border-border/20 dark:focus-within:border-border
+    outline-none
+    text-foreground
+ border-radius-bottom-none mx-auto max-w-[48rem] overflow-hidden rounded-3xl backdrop-blur-md  "><!----><!----> <!----> <!----><!----><!----><!----><!----><!----> <div class="flex-column relative min-h-[48px] items-center rounded-3xl px-5 py-3 shadow-sm transition-all focus-within:shadow-md"><div class="flex-1 "><textarea class="text-md max-h-32 min-h-12 w-full resize-none border-0 bg-transparent p-0 leading-6 outline-none placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0" placeholder="Ask anything..."></textarea></div><!----> <div style="container-type: inline-size" class="flex w-full items-center gap-3 "><div class="flex items-center gap-1 mr-auto"><!----><!----><!----><!----><!----><!----><button data-slot="dropdown-menu-trigger" name="Attach files" id="bits-c53" aria-haspopup="menu" aria-expanded="false" data-state="closed" data-dropdown-menu-trigger="" type="button"><!----><!----><!----><!----><!----><!----><!----><button data-slot="tooltip-trigger" id="bits-c54" data-state="closed" data-delay-duration="500" data-tooltip-trigger="" tabindex="0" type="button"><!----><button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 shadow-xs has-[&gt;svg]:px-3 file-upload-button h-8 w-8 rounded-full bg-transparent p-0 text-muted-foreground hover:bg-foreground/10 hover:text-foreground svelte-1q39rn8" type="button"><span class="sr-only">Attach files</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-paperclip h-4 w-4"><!----><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"></path><!----><!----><!----></svg><!----><!----></button><!----></button><!----> <!----><!----><!----><!----><!----></button><!----> <!----><!----><!----><!----></div><!----> <div class="relative inline-flex flex-col items-end gap-1"><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><button data-slot="popover-trigger" class="inline-flex cursor-pointer items-center gap-1.5 rounded-sm bg-muted-foreground/10 px-1.5 py-1 text-xs transition hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 text-foreground" style="max-width: min(100cqw - 6.5rem, 32rem);" id="bits-c55" aria-haspopup="dialog" aria-expanded="false" data-state="closed" data-popover-trigger="" type="button"><!----><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-package h-3.5 w-3.5"><!----><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path><!----><path d="M12 22V12"></path><!----><polyline points="3.29 7 12 12 20.71 7"></polyline><!----><path d="m7.5 4.27 9 5.15"></path><!----><!----><!----></svg><!----> <span class="truncate font-medium">gpt-oss-20b-high</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-chevron-down h-3 w-3.5"><!----><path d="m6 9 6 6 6-6"></path><!----><!----><!----></svg><!----><!----></button><!----> <!----><!----><!----><!----></div> <!----><!----> <!----><!----><!----><button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap text-sm font-medium outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 has-[&gt;svg]:px-3 h-8 w-8 rounded-full p-0 svelte-1q39rn8" type="submit" disabled="disabled"><span class="sr-only">Send</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon lucide lucide-arrow-up h-12 w-12"><!----><path d="m5 12 7-7 7 7"></path><!----><path d="M12 19V5"></path><!----><!----><!----></svg><!----><!----></button><!----></div><!----></div></form> <!----><!----><!----></div></div></div><!----> <!----><!----><!----><!----> <!----><!----><!----><!----><!----><!----> <!----><!----><!----><!----><!----><!----> <!----><!----><!----><!----><!----><!----><!----> <!----><!----><!----><!----><!----><!----><!----></main><!----></div><!----></div><!----><!----> <div id="svelte-announcer" aria-live="assertive" aria-atomic="true" style="position: absolute; left: 0; top: 0; clip: rect(0 0 0 0); clip-path: inset(50%); overflow: hidden; white-space: nowrap; width: 1px; height: 1px">Chat 2/20/2026, 7:51:54 PM - llama.cpp<!----></div><!----></div>
+
+  </body>
+</html>
