@@ -98,6 +98,9 @@
   "error_ai_response_not_found": {
     "message": "Réponse IA introuvable à partir de l'élément cliqué."
   },
+  "error_read_not_allowed": {
+    "message": "Il se peut que l'extension n'ait pas l'autorisation de lire cette page."
+  },
   "error_unknown": {
     "message": "erreur inconnue"
   }

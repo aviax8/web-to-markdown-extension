@@ -94,6 +94,50 @@ chrome.runtime.onStartup.addListener(() => {
     createContextMenu();
 });
 
+function isBlockedUrl(url = '') {
+    const u = url.toLowerCase();
+    return (
+        // browser internal pages
+        u.startsWith('chrome://') ||
+        u.startsWith('edge://') ||
+        u.startsWith('about:') ||
+
+        // extension/internal special schemes
+        u.startsWith('chrome-extension://') ||
+        u.startsWith('moz-extension://') ||
+        u.startsWith('view-source:') ||
+
+        // stores (extensions usually restricted there)
+        u.includes('chrome.google.com/webstore') ||
+        u.includes('microsoftedge.microsoft.com/addons') ||
+        u.includes('addons.mozilla.org')
+    );
+}
+
+// Function to hide the context menu on blocked pages.
+function updateMenuVisibility(tabId, url) {
+    if (!url)  {
+        return;
+    }
+
+    chrome.contextMenus.update(MENU_ROOT, {
+        visible: !isBlockedUrl(url)
+    });
+}
+
+// Monitor changes to the tab.
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+    const tab = await chrome.tabs.get(activeInfo.tabId);
+    updateMenuVisibility(tab.id, tab.url);
+});
+
+// Monitor the loading of a new URL in the same tab.
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (changeInfo.status === 'complete') {
+        updateMenuVisibility(tabId, tab.url);
+    }
+});
+
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (!tab?.id) {
         return;
@@ -116,7 +160,10 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 
     chrome.tabs.sendMessage(tab.id, { action }, (response) => {
         if (chrome.runtime.lastError) {
-            console.error('[Web-to-Markdown] Failed to copy content:', chrome.runtime.lastError.message);
+            //window is not available in background script, we cannot show and alert
+            console.error(`${t('error_dialog_prefix', 'Web to Markdown error:')}\n` +
+                `${chrome.runtime.lastError.message}\n` +
+                `${t('error_read_not_allowed', 'Perhaps the extension is not allowed to read this page.')}`);
             return;
         }
 

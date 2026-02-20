@@ -98,6 +98,9 @@
   "error_ai_response_not_found": {
     "message": "AI response not found from the clicked element."
   },
+  "error_read_not_allowed": {
+    "message": "Perhaps the extension is not allowed to read this page."
+  },
   "error_unknown": {
     "message": "unknown error"
   }
